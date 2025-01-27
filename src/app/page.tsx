@@ -53,9 +53,9 @@ export default function Home() {
               className="block md:hidden"
               alt="hand-mobile"
             />
-            {/* <div className="bg-[#7d7e7f] border absolute lg:top-[16.2vw] lg:w-[380px] top-[46vw] w-[290px]  rounded-lg p-2">
+            <div className="bg-[#7d7e7f] border absolute lg:top-[48.8vw] lg:w-[380px] top-[122vw] w-[290px]  rounded-lg p-2">
               <p className="text-gray-300">Pottery</p>
-            </div> */}
+            </div>
           </div>
           <div className="p-4 bg-white border border-solid border-gray-200 rounded-lg">
             <Image
@@ -72,9 +72,9 @@ export default function Home() {
               className="block md:hidden"
               alt="hand-mobile"
             />
-            {/* <div className="bg-[#7d7e7f] border absolute lg:top-[17.2vw] top-[100vw] lg:w-[380px] w-[290px]  rounded-lg p-2">
+            <div className="bg-[#7d7e7f] border absolute lg:top-[51vw] top-[176-vw] lg:w-[380px] w-[290px]  rounded-lg p-2">
               <p className="text-gray-300">Pottery</p>
-            </div> */}
+            </div>
           </div>
           <div className="p-4 bg-white border border-solid border-gray-200 rounded-lg">
             <Image
@@ -91,9 +91,9 @@ export default function Home() {
               className="block md:hidden"
               alt="hand-mobile"
             />
-            {/* <div className="bg-[#7d7e7f] border absolute lg:top-[17.2vw]  top-[155vw] lg:w-[380px] w-[290px]  rounded-lg p-2">
+            <div className="bg-[#7d7e7f] border absolute lg:top-[51vw]  top-[230vw] lg:w-[380px] w-[290px]  rounded-lg p-2">
               <p className="text-gray-300">Hand</p>
-            </div> */}
+            </div>
           </div>
         </div>
       </section>
