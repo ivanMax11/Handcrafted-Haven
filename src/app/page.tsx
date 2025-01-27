@@ -1,10 +1,39 @@
 import Footer from "../app/ui/home/footer";
 import Image from "next/image";
+import Header from "../app/ui/home/header";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div>
-      <div className="grid grid-cols-1 bg-[#f9fafb] lg:p-[2vw] p-[5vw]">
+      <header>
+        <Header />
+      </header>
+      <section className="w-full lg:h-[60vh] h-[35vh] bg-[#ffffff] flex flex-col justify-center items-center">
+        <div className="text-center">
+          <p className="text-gray-900 lg:text-[4vw] text-[6vw]    text-nowrap">
+            Discover Unique
+            <span className="text-blue-700 text-nowrap"> HandCrafteds</span>
+          </p>
+          <h1 className="text-gray-900 lg: text-[6vw]  text-nowrap">
+            Treasures
+          </h1>
+        </div>
+
+        <h3 className="text-gray-400 lg:text-[1.2vw] text-[4vw] lg:px-[0vw] px-[10vw]">
+          Connect with talented artisans and find one-of-a-kind pieces crafted
+          with passion and skil
+        </h3>
+        <div className="py-[2vw]">
+          <button className="bg-blue-700 text-white p-2 rounded-lg m-2">
+            <Link href="/shop">Shop Now</Link>
+          </button>
+          <button className="bg-[#e0e7ff] text-[#7672ec] p-2 rounded-lg m-2">
+            <Link href="/shop">Become a Seller</Link>
+          </button>
+        </div>
+      </section>
+      <section className="grid grid-cols-1 bg-[#f9fafb] lg:p-[2vw] p-[5vw]">
         <h1 className="font-extrabold text-center lg:py-[1vw] py-[3vw]">
           Popular Categories
         </h1>
@@ -24,9 +53,9 @@ export default function Home() {
               className="block md:hidden"
               alt="hand-mobile"
             />
-            <div className="bg-[#7d7e7f] border absolute lg:top-[16.2vw] lg:w-[380px] top-[46vw] w-[290px]  rounded-lg p-2">
+            {/* <div className="bg-[#7d7e7f] border absolute lg:top-[16.2vw] lg:w-[380px] top-[46vw] w-[290px]  rounded-lg p-2">
               <p className="text-gray-300">Pottery</p>
-            </div>
+            </div> */}
           </div>
           <div className="p-4 bg-white border border-solid border-gray-200 rounded-lg">
             <Image
@@ -43,9 +72,9 @@ export default function Home() {
               className="block md:hidden"
               alt="hand-mobile"
             />
-              <div className="bg-[#7d7e7f] border absolute lg:top-[17.2vw] top-[100vw] lg:w-[380px] w-[290px]  rounded-lg p-2">
+            {/* <div className="bg-[#7d7e7f] border absolute lg:top-[17.2vw] top-[100vw] lg:w-[380px] w-[290px]  rounded-lg p-2">
               <p className="text-gray-300">Pottery</p>
-            </div>
+            </div> */}
           </div>
           <div className="p-4 bg-white border border-solid border-gray-200 rounded-lg">
             <Image
@@ -62,12 +91,12 @@ export default function Home() {
               className="block md:hidden"
               alt="hand-mobile"
             />
-              <div className="bg-[#7d7e7f] border absolute lg:top-[17.2vw]  top-[155vw] lg:w-[380px] w-[290px]  rounded-lg p-2">
+            {/* <div className="bg-[#7d7e7f] border absolute lg:top-[17.2vw]  top-[155vw] lg:w-[380px] w-[290px]  rounded-lg p-2">
               <p className="text-gray-300">Hand</p>
-            </div>
+            </div> */}
           </div>
         </div>
-      </div>
+      </section>
       <div className="grid grid-cols-1 bg-[#ffffff] lg:p-[2vw] p-[5vw]">
         <h1 className="font-extrabold text-center lg:py-[1vw] py-[3vw]">
           Featured Products
