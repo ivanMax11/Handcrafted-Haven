@@ -2,16 +2,17 @@ import Footer from "../app/ui/home/footer";
 import Image from "next/image";
 import Header from "../app/ui/home/header";
 import Link from "next/link";
+import { roboto } from "../app/ui/fonts";
 
 export default function Home() {
   return (
-    <div>
+    <div className={`${roboto.className} font-roboto`}>
       <section>
         <Header />
       </section>
       <section className="w-full lg:h-[60vh] h-[35vh] bg-[#ffffff] flex flex-col justify-center items-center">
         <div className="text-center">
-          <p className="text-gray-900 lg:text-[4vw] text-[6vw]    text-nowrap">
+          <p className="text-gray-900 lg:text-[4vw] text-[6vw] text-nowrap">
             Discover Unique
             <span className="text-blue-700 text-nowrap"> HandCrafteds</span>
           </p>
