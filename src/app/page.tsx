@@ -6,9 +6,9 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div>
-      <header>
+      <section>
         <Header />
-      </header>
+      </section>
       <section className="w-full lg:h-[60vh] h-[35vh] bg-[#ffffff] flex flex-col justify-center items-center">
         <div className="text-center">
           <p className="text-gray-900 lg:text-[4vw] text-[6vw]    text-nowrap">
@@ -97,7 +97,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="grid grid-cols-1 bg-[#ffffff] lg:p-[2vw] p-[5vw]">
+      <section className="grid grid-cols-1 bg-[#ffffff] lg:p-[2vw] p-[5vw]">
         <h1 className="font-extrabold text-center lg:py-[1vw] py-[3vw]">
           Featured Products
         </h1>
@@ -179,11 +179,11 @@ export default function Home() {
             <p className="text-blue-500">99$</p>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div>
+      <section>
         <Footer />
-      </div>
+      </section>
     </div>
   );
 }
