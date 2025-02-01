@@ -13,7 +13,7 @@ export default function Header() {
         <Link className='text-gray-600 ' href='#'>
           Shop
         </Link>
-        <Link className='text-gray-600 ' href='#'>
+        <Link className='text-gray-600 ' href='/profile'>
           Artisans
         </Link>
         <Link className='text-gray-600 ' href='/about'>
