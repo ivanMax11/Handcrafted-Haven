@@ -1,4 +1,9 @@
 import CardProduct from "../../ui/shop/card-product";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'List Products',
+};
 
 export default function page() {
   return (

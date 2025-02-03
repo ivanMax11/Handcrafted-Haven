@@ -3,6 +3,12 @@ import Image from "next/image";
 import Header from "../app/ui/home/header";
 import Link from "next/link";
 import { roboto } from "../app/ui/fonts";
+import type { Metadata } from "next";
+
+
+export const metadata: Metadata = {
+  title: 'Handcrafted',
+};
 
 export default function Home() {
   return (
