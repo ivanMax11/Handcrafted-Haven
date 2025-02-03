@@ -1,41 +1,69 @@
-import Link from 'next/link';
+"use client";
+
+import Link from "next/link";
+import clsx from "clsx";
+import { usePathname } from "next/navigation";
+
+const links = [
+  {
+    name: "Home",
+    href: "/",
+  },
+  {
+    name: "Shop",
+    href: "/shop/products",
+  },
+  {
+    name: "About",
+    href: "/about",
+  },
+  {
+    name: "Sign In",
+    href: "/login",
+  },
+];
 
 export default function Header() {
+  const pathname = usePathname();
+
   return (
-    <div className='flex justify-between items-center lg:mx-[10vw] mx-[8vw] py-[1vw] border-b border-solid border-gray-200'>
-      <Link className='text-blue-700 lg:text-2xl' href='/'>
-        Handcrafted
-      </Link>
-      <div className='hidden lg:flex space-x-4'>
-        <Link className='text-gray-600 ' href='/'>
-          Home
+    <>
+      <div className="flex justify-between items-center lg:mx-[10vw] mx-[8vw] py-[1vw] border-b border-solid border-gray-200">
+        <Link className="text-blue-700 lg:text-2xl" href="/">
+          Handcrafted
         </Link>
-        <Link className='text-gray-600 ' href='/shop/products'>
-          Shop
-        </Link>
-        
-        <Link className='text-gray-600 ' href='/about'>
-          About
-        </Link>
-        <Link className='text-blue-700 ' href='/login'>
-          Sign In
-        </Link>
+        <div className="hidden lg:flex space-x-4">
+          {links.map((link) => {
+            return (
+              <Link
+                className={clsx("text-gray-600", {
+                  "bg-sky-100 text-blue-700": pathname === link.href,
+                })}
+                key={link.href}
+                href={link.href}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="lg:hidden flex space-x-1">
+        {links.map((link) => {
+            return (
+              <Link
+                className={clsx("text-gray-600", {
+                  "bg-sky-100 text-blue-700": pathname === link.href,
+                })}
+                key={link.href}
+                href={link.href}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
+        </div>
       </div>
-      <div className='lg:hidden flex space-x-1'>
-        <Link className='text-gray-600 ' href='#'>
-          Home
-        </Link>
-        <Link className='text-gray-600 ' href='/shop/products'>
-          Shop
-        </Link>
-       
-        <Link className='text-gray-600 ' href='#'>
-          About
-        </Link>
-        <Link className='text-blue-700 ' href='/login'>
-          Sign In
-        </Link>
-      </div>
-    </div>
+    </>
   );
 }
