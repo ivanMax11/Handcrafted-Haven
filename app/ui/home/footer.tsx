@@ -12,16 +12,16 @@ export default function Footer() {
         </div>
         <div className='flex flex-col gap-2'>
           <h3 className='text-gray-100'>Quick links</h3>
-          <Link href='#' className='text-gray-300'>
+          <Link href='/shop/products' className='text-gray-300'>
             Shop
           </Link>
-          <Link href='#' className='text-gray-300'>
+          <Link href='/shop/products' className='text-gray-300'>
             Sell
           </Link>
-          <Link href='#' className='text-gray-300'>
+          <Link href='/about' className='text-gray-300'>
             About
           </Link>
-          <Link href='#' className='text-gray-300'>
+          <Link href='/about' className='text-gray-300'>
             Contact
           </Link>
         </div>
@@ -33,7 +33,7 @@ export default function Footer() {
           <Link href='#' className='text-gray-300'>
             Return
           </Link>
-          <Link href='#' className='text-gray-300'>
+          <Link href='/about' className='text-gray-300'>
             FAQs
           </Link>
         </div>
