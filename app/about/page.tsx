@@ -1,13 +1,19 @@
 import Footer from '../ui/home/footer';
 import Header from '../ui/home/header';
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'About',
+};
+
 
 export default function About() {
   return (
-    <div>
+    <div className=''>
       <section>
         <Header />
       </section>
-      <div className='px-4 py-8'>
+      <div className='px-4 py-8 h-screen '>
         <h2 className='text-gray-900 lg:text-[4vw] text-[6vw] text-nowrap flex justify-center'>
           About Handcrafted Haven
         </h2>
