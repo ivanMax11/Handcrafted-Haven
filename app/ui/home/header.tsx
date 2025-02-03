@@ -17,7 +17,7 @@ export default function Header() {
         <Link className='text-gray-600 ' href='/about'>
           About
         </Link>
-        <Link className='text-blue-700 ' href='#'>
+        <Link className='text-blue-700 ' href='/login'>
           Sign In
         </Link>
       </div>
@@ -32,7 +32,7 @@ export default function Header() {
         <Link className='text-gray-600 ' href='#'>
           About
         </Link>
-        <Link className='text-blue-700 ' href='#'>
+        <Link className='text-blue-700 ' href='/login'>
           Sign In
         </Link>
       </div>
