@@ -19,7 +19,7 @@ const links = [
   },
   {
     name: "Sign In",
-    href: "/login",
+    href: "/authenticated/login",
   },
 ];
 

@@ -36,7 +36,8 @@ async function seedProducts() {
         price INTEGER NOT NULL,
         description TEXT NOT NULL,
         image TEXT NOT NULL,
-        quantity INTEGER NOT NULL
+        quantity INTEGER NOT NULL,
+        category TEXT NOT NULL
     )`;
 
   await client.sql`CREATE TABLE reviews (

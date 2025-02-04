@@ -22,6 +22,7 @@ export type product = {
     description: string;
     image: string;
     quantity: number;
+    category: string;
     reviews: review[];
 }
 

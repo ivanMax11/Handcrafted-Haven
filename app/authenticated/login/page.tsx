@@ -1,7 +1,5 @@
-import Footer from "../ui/home/footer";
-import Header from "../ui/home/header";
-import FormSign from "../ui/login/formSign";
 import type { Metadata } from "next";
+import FormSign from "../../ui/login/formSign";
 
 export const metadata: Metadata = {
   title: "Login",
@@ -10,11 +8,7 @@ export const metadata: Metadata = {
 export default function login() {
   return (
     <>
-      <Header />
-
       <FormSign />
-
-      <Footer />
     </>
   );
 }

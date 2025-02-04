@@ -25,6 +25,7 @@ const products = [
     description: "Product 1 description here",
     image: "/hand(1).jpg",
     quantity: 10,
+    category: "category 1",
     reviews: [
       {
         id: "1",
@@ -45,6 +46,7 @@ const products = [
     description: "Product 2 description here",
     image: "/hand(2).jpg",
     quantity: 20,
+    category: "category 2",
     reviews: [
       {
         id: "1",
@@ -60,6 +62,7 @@ const products = [
     description: "Product 3 description here",
     image: "/hand(3).jpg",
     quantity: 30,
+    category: "category 2",
     reviews: [],
   },
   {
@@ -69,6 +72,7 @@ const products = [
     description: "Product 4 description here",
     image: "/hand(4).jpg",
     quantity: 40,
+    category: "category 3",
     reviews: [],
   },
   {
@@ -78,6 +82,7 @@ const products = [
     description: "Product 5 description here",
     image: "/hand(5).jpg",
     quantity: 50,
+    category: "category 1",
     reviews: [],
   },
 ];
