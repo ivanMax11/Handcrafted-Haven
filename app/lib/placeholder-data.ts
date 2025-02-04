@@ -4,6 +4,7 @@ const users = [
     name: "User",
     lastName: "1",
     email: "user@nextmail.com",
+    img: "https://avatars.githubusercontent.com/u/104804871?s=400&u=9a19d81f1af08a2667bf0ac0c65655af7b373d45&v=4",
     password: "123456",
     role: "user",
   },
@@ -12,6 +13,8 @@ const users = [
     name: "Admin",
     lastName: "2",
     email: "admin@gmail.com",
+    img: "https://avatars.githubusercontent.com/u/104804871?s=400&u=9a19d81f1af08a2667bf0ac0c65655af7b373d45&v=4",
+
     password: "123456",
     role: "admin",
   },
