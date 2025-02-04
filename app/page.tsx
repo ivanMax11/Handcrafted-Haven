@@ -45,7 +45,7 @@ export default function Home() {
           Popular Categories
         </h1>
         <div className="grid lg:grid-cols-3 grid-cols-1 justify-self-center  gap-[5vw] px-[10vw]">
-          <div className="p-4 bg-white border justify-self-center border-solid border-gray-200 rounded-lg ">
+          <div className="relative p-4 bg-white border justify-self-center border-solid border-gray-200 rounded-lg ">
             <Image
               src={"/handcrafted.jpg"}
               width={500}
@@ -60,11 +60,11 @@ export default function Home() {
               className="block md:hidden"
               alt="hand-mobile"
             />
-            <div className="bg-[#7d7e7f] border absolute lg:top-[48.8vw] lg:w-[380px] top-[122vw] w-[290px]  rounded-lg p-2">
+            <div className="bg-[#7d7e7f] border absolute lg:top-[9.8vw] lg:w-[19.8vw] top-[28vw] w-[62vw]  rounded-lg p-2">
               <p className="text-gray-300">Pottery</p>
             </div>
           </div>
-          <div className="p-4 bg-white border border-solid border-gray-200 rounded-lg">
+          <div className="relative p-4 bg-white border border-solid border-gray-200 rounded-lg">
             <Image
               src={"/handcrafted 2.jpg"}
               width={500}
@@ -79,11 +79,11 @@ export default function Home() {
               className="block md:hidden"
               alt="hand-mobile"
             />
-            <div className="bg-[#7d7e7f] border absolute lg:top-[51vw] top-[176-vw] lg:w-[380px] w-[290px]  rounded-lg p-2">
+            <div className="bg-[#7d7e7f] border absolute lg:top-[12vw] top-[35vw] lg:w-[19.8vw] w-[62vw]  rounded-lg p-2">
               <p className="text-gray-300">Pottery</p>
             </div>
           </div>
-          <div className="p-4 bg-white border border-solid border-gray-200 rounded-lg">
+          <div className="relative p-4 bg-white border border-solid border-gray-200 rounded-lg">
             <Image
               src={"/handcrafted 3.jpg"}
               width={500}
@@ -98,7 +98,7 @@ export default function Home() {
               className="block md:hidden"
               alt="hand-mobile"
             />
-            <div className="bg-[#7d7e7f] border absolute lg:top-[51vw]  top-[230vw] lg:w-[380px] w-[290px]  rounded-lg p-2">
+            <div className="bg-[#7d7e7f] border absolute lg:top-[12vw]  top-[38vw] lg:w-[19.8vw] w-[62vw]  rounded-lg p-2">
               <p className="text-gray-300">Hand</p>
             </div>
           </div>
