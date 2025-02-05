@@ -1,92 +1,62 @@
 const users = [
   {
-    id: "410544b2-4001-4271-9855-fec4b6a6442a",
-    name: "User",
-    lastName: "1",
-    email: "user@nextmail.com",
-    img: "https://avatars.githubusercontent.com/u/104804871?s=400&u=9a19d81f1af08a2667bf0ac0c65655af7b373d45&v=4",
-    password: "123456",
-    role: "user",
+    username: "artisan_john",
+    password: "password123",
+    email: "john@example.com",
+    full_name: "John Doe",
+    bio: "Passionate artisan crafting handmade jewelry.",
+    profile_picture: "https://example.com/images/john.jpg",
+    is_artisan: true,
   },
   {
-    id: "410544b2-4001-4271-9855-fec4b6a6442b",
-    name: "Admin",
-    lastName: "2",
-    email: "admin@gmail.com",
-    img: "https://avatars.githubusercontent.com/u/104804871?s=400&u=9a19d81f1af08a2667bf0ac0c65655af7b373d45&v=4",
+    username: "buyer_jane",
+    password: "securepass456",
+    email: "jane@example.com",
+    full_name: "Jane Smith",
+    bio: "Lover of unique handmade goods.",
+    profile_picture: "https://example.com/images/jane.jpg",
+    is_artisan: false,
+  }
+];
 
-    password: "123456",
-    role: "admin",
-  },
+const categories = [
+  { name: "Jewelry" },
+  { name: "Pottery" },
+  { name: "Woodwork" }
 ];
 
 const products = [
   {
-    id: "d6e15727-9fe1-4961-8c5b-ea44a9bd81aa",
-    name: "Product 1",
-    price: 100,
-    description: "Product 1 description here",
-    image: "/hand(1).jpg",
-    quantity: 10,
-    category: "category 1",
-    reviews: [
-      {
-        id: "1",
-        rating: 4,
-        comment: "Good product",
-      },
-      {
-        id: "2",
-        rating: 2,
-        comment: "Bad product",
-      },
-    ],
+    user_id: 1,
+    name: "Handmade Silver Ring",
+    category_id: 1, // Jewelry
+    description: "Beautiful handcrafted silver ring.",
+    image_url: "https://example.com/ring.jpg",
+    price: 49.99,
+    stock: 10
   },
   {
-    id: "d6e15727-9fe1-4961-8c5b-ea44a9bd81ab",
-    name: "Product 2",
-    price: 200,
-    description: "Product 2 description here",
-    image: "/hand(2).jpg",
-    quantity: 20,
-    category: "category 2",
-    reviews: [
-      {
-        id: "1",
-        rating: 5,
-        comment: "Great product",
-      },
-    ],
-  },
-  {
-    id: "d6e15727-9fe1-4961-8c5b-ea44a9bd81ac",
-    name: "Product 3",
-    price: 300,
-    description: "Product 3 description here",
-    image: "/hand(3).jpg",
-    quantity: 30,
-    category: "category 2",
-    reviews: [],
-  },
-  {
-    id: "d6e15727-9fe1-4961-8c5b-ea44a9bd81ad",
-    name: "Product 4",
-    price: 400,
-    description: "Product 4 description here",
-    image: "/hand(4).jpg",
-    quantity: 40,
-    category: "category 3",
-    reviews: [],
-  },
-  {
-    id: "d6e15727-9fe1-4961-8c5b-ea44a9bd81ae",
-    name: "Product 5",
-    price: 500,
-    description: "Product 5 description here",
-    image: "/hand(5).jpg",
-    quantity: 50,
-    category: "category 1",
-    reviews: [],
-  },
+    user_id: 2,
+    name: "Ceramic Vase",
+    category_id: 2, // Pottery
+    description: "Elegant ceramic vase with intricate patterns.",
+    image_url: "https://example.com/vase.jpg",
+    price: 79.99,
+    stock: 5
+  }
 ];
-export { products, users };
+
+const comments = [
+  {
+    product_id: 1,
+    user_id: 2,
+    comment_text: "This ring looks amazing! Will order soon."
+  },
+  {
+    product_id: 2,
+    user_id: 1,
+    comment_text: "The craftsmanship is incredible. Highly recommend!"
+  }
+];
+
+export { users, categories, products, comments };
