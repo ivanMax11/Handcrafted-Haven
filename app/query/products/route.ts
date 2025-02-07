@@ -2,7 +2,7 @@ import { db } from "@vercel/postgres";
 
 const client = await db.connect();
 
-async function listProducts() {
+export async function listProducts() {
     const data = await client.sql`
     SELECT * FROM products;`;
 
