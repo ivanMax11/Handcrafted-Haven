@@ -88,7 +88,7 @@ export default function CardProduct() {
                 onChange={handleCategoryChange}
                 className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
               >
-                <option value="">Todas las Categorías</option>
+                <option value="">All the categories</option>
                 {categories.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}
@@ -128,7 +128,7 @@ export default function CardProduct() {
                 type="search"
                 id="search-dropdown"
                 className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Buscar productos"
+                placeholder="Search products"
                 required
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -140,7 +140,7 @@ export default function CardProduct() {
                 type="number"
                 id="min-price"
                 className="block p-2.5 w-1/2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 placeholder:text-gray-400"
-                placeholder="Precio Mínimo"
+                placeholder="Price Min"
                 value={minPrice === undefined ? "" : minPrice}
                 onChange={handleMinPriceChange}
               />
@@ -148,7 +148,7 @@ export default function CardProduct() {
                 type="number"
                 id="max-price"
                 className="block p-2.5 w-1/2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 placeholder:text-gray-400"
-                placeholder="Precio Máximo"
+                placeholder="Price Max"
                 value={maxPrice === undefined ? "" : maxPrice}
                 onChange={handleMaxPriceChange}
               />
