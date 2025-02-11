@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function page() {
   return (
     <div>
-      <h3 className="text-center lg:text-[2vw] text-[5vw] text-[#aaadb5]" >List Products </h3>
+      <h3 className="text-center p-[0vw] lg:py-[1vw] lg:text-[2vw] text-[5vw] text-[#aaadb5]" >List Products </h3>
       <CardProduct />
     </div>
   );
