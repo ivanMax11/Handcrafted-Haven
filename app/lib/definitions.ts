@@ -6,4 +6,10 @@ export type Product = {
   image_url: string;
   price: number;
   stock: string;
+  id: number;
+};
+
+export type Category = {
+  id: number;
+  name: string;
 };
