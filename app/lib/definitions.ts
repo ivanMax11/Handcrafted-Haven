@@ -13,3 +13,10 @@ export type Category = {
   id: number;
   name: string;
 };
+
+export type Comments = {
+  id: number;
+  user_id: number;
+  product_id: number;
+  comment: string;
+};

@@ -3,7 +3,11 @@ import { roboto } from "../fonts";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Product } from "../../lib/definitions";
+import { Comments } from "../../lib/definitions";
+
 import { Category } from "../../lib/definitions";
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
 
 export default function CardProduct() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -13,6 +17,24 @@ export default function CardProduct() {
   const [originalProducts, setOriginalProducts] = useState<Product[]>([]);
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined);
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined);
+  const [comments, setReview] = useState<Comments | null>(null);
+
+  const [open, setOpen] = useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
+
+  useEffect(() => {
+    const getReviews = async () => {
+      const response = await fetch("/query/comments");
+      const dataReview = await response.json();
+      console.log(dataReview);
+
+      setReview(dataReview);
+    };
+
+    getReviews();
+  }, []);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -109,7 +131,7 @@ export default function CardProduct() {
             <div className="relative flex-grow">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  className="w-4 h-4 text-gray-500 "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -127,7 +149,7 @@ export default function CardProduct() {
               <input
                 type="search"
                 id="search-dropdown"
-                className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
                 placeholder="Buscar productos"
                 required
                 value={searchTerm}
@@ -169,6 +191,34 @@ export default function CardProduct() {
 
   return (
     <>
+      <Modal
+        open={open}
+        onClose={onCloseModal}
+        center
+        styles={{
+          modal: { borderRadius: "1.2vw", padding: "3vw", width: "30vw" },
+        }}
+      >
+        <h1>Review</h1>
+
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="relative flex-grow">
+            <input
+              type="text"
+              id="review"
+              className="block w-full p-2 ps-10 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Review"
+              required
+            />
+          </div>
+          <button
+            className="h-10 px-6 font-semibold rounded-md bg-blue-700 text-white"
+            type="submit"
+          >
+            Add review
+          </button>
+        </div>
+      </Modal>
       <form className="max-w-2xl mx-auto py-4 px-4 md:px-0">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-grow">
@@ -200,7 +250,7 @@ export default function CardProduct() {
           <div className="relative flex-grow">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg
-                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                className="w-4 h-4 text-gray-500 "
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -218,7 +268,7 @@ export default function CardProduct() {
             <input
               type="search"
               id="search-dropdown"
-              className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Search products"
               required
               value={searchTerm}
@@ -285,7 +335,7 @@ export default function CardProduct() {
               />
             </div>
 
-            <form className="flex-auto p-0 lg:p-6">
+            <form className="flex-auto pl-4 lg:p-6">
               <div className="flex flex-wrap">
                 <h1 className="flex-auto text-lg font-semibold">
                   {product.name}
@@ -301,9 +351,10 @@ export default function CardProduct() {
                 <div className="flex-auto flex space-x-4">
                   <button
                     className="h-10 px-6 font-semibold rounded-md bg-blue-700 text-white"
-                    type="submit"
+                    onClick={onOpenModal}
+                    type="button"
                   >
-                    Buy now
+                    see reviews
                   </button>
                 </div>
               </div>
