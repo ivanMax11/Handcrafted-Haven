@@ -16,7 +16,8 @@ export type Category = {
 
 export type Comments = {
   id: number;
-  user_id: number;
   product_id: number;
+  user_id: number;
   comment: string;
+  created_at: string;
 };

@@ -314,7 +314,7 @@ export default function CardProduct() {
             src={product.image_url}
             width={300}
             height={200}
-          className="block md:hidden absolute inset-0 w-full h-full object-cover"
+            className="block md:hidden absolute inset-0 w-[45vw] h-[20vh] object-cover"
             alt="Picture of the author"
           />
           
