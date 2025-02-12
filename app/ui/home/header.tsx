@@ -3,6 +3,29 @@
 import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import { signIn, signOut, useSession } from "next-auth/react";
+
+
+function AuthButton() {
+
+  const { data: session } = useSession();
+
+
+  if (session) {
+    return (
+      <>
+        Welcome {session?.user?.name} <br />
+        <button className="bg-[#e0e7ff] text-[#7672ec] p-2 rounded-lg m-2" onClick={() => signOut()}>Sign Out</button>
+      </>
+    );
+  }
+  return (
+    <>
+      Not Signed in <br />
+      <button className="bg-blue-700 text-white p-2 rounded-lg m-2" onClick={() => signIn()}>Sign In</button>
+    </>
+  );
+}
 
 const links = [
   {
@@ -18,8 +41,8 @@ const links = [
     href: "/about",
   },
   {
-    name: "Sign In",
-    href: "/authenticated/login",
+    name: "My Profile",
+    href: "/myprofile",
   },
 ];
 
@@ -49,7 +72,7 @@ export default function Header() {
         </div>
 
         <div className="lg:hidden flex space-x-1">
-        {links.map((link) => {
+          {links.map((link) => {
             return (
               <Link
                 className={clsx("text-gray-600", {
@@ -63,6 +86,7 @@ export default function Header() {
             );
           })}
         </div>
+        <AuthButton />
       </div>
     </>
   );
