@@ -17,20 +17,26 @@ export default function CardProduct() {
   const [originalProducts, setOriginalProducts] = useState<Product[]>([]);
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined);
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined);
-  const [comments, setReview] = useState<Comments | null>(null);
+  const [comments, setComments] = useState<Comments[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const [open, setOpen] = useState(false);
 
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  const onOpenModal = (product: Product) => {
+    setSelectedProduct(product);
+    setOpen(true);
+  };
+
+  const onCloseModal = () => {
+    setSelectedProduct(null);
+    setOpen(false);
+  };
 
   useEffect(() => {
     const getReviews = async () => {
       const response = await fetch("/query/comments");
       const dataReview = await response.json();
-      console.log(dataReview);
-
-      setReview(dataReview);
+      setComments(dataReview);
     };
 
     getReviews();
@@ -110,7 +116,7 @@ export default function CardProduct() {
                 onChange={handleCategoryChange}
                 className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
               >
-                <option value="">Todas las Categorías</option>
+                <option value="">All the categories</option>
                 {categories.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}
@@ -150,7 +156,7 @@ export default function CardProduct() {
                 type="search"
                 id="search-dropdown"
                 className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-                placeholder="Buscar productos"
+                placeholder="search products"
                 required
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -162,7 +168,7 @@ export default function CardProduct() {
                 type="number"
                 id="min-price"
                 className="block p-2.5 w-1/2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 placeholder:text-gray-400"
-                placeholder="Precio Mínimo"
+                placeholder="Price min"
                 value={minPrice === undefined ? "" : minPrice}
                 onChange={handleMinPriceChange}
               />
@@ -170,7 +176,7 @@ export default function CardProduct() {
                 type="number"
                 id="max-price"
                 className="block p-2.5 w-1/2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 placeholder:text-gray-400"
-                placeholder="Precio Máximo"
+                placeholder="Price Max"
                 value={maxPrice === undefined ? "" : maxPrice}
                 onChange={handleMaxPriceChange}
               />
@@ -200,6 +206,16 @@ export default function CardProduct() {
         }}
       >
         <h1>Review</h1>
+        {selectedProduct &&
+          comments
+            .filter(
+              (comment: Comments) => comment.product_id === selectedProduct.id
+            )
+            .map((comment: Comments) => (
+              <div key={comment.id}>
+                <h2>{comment.comment_text}</h2>
+              </div>
+            ))}
 
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-grow">
@@ -351,7 +367,7 @@ export default function CardProduct() {
                 <div className="flex-auto flex space-x-4">
                   <button
                     className="h-10 px-6 font-semibold rounded-md bg-blue-700 text-white"
-                    onClick={onOpenModal}
+                    onClick={() => onOpenModal(product)}
                     type="button"
                   >
                     see reviews

@@ -18,6 +18,6 @@ export type Comments = {
   id: number;
   product_id: number;
   user_id: number;
-  comment: string;
+  comment_text: string;
   created_at: string;
 };
