@@ -319,31 +319,15 @@ export default function CardProduct() {
         {products.map((product) => (
           <div key={product.id} className="flex font-roboto">
             <div className="flex-none w-48 relative">
-              {/* <Image
-            src={product.image_url}
-            width={500}
-            height={200}
-          className="hidden md:block absolute inset-0 w-full h-full object-cover"
-            alt="Picture of the author"
-          />
-           <Image
-            src={product.image_url}
-            width={300}
-            height={200}
-            className="block md:hidden absolute inset-0 w-[45vw] h-[20vh] object-cover"
-            alt="Picture of the author"
-          />
-          
-          */}
               <Image
-                src="https://st2.depositphotos.com/1177973/12314/i/450/depositphotos_123146230-stock-photo-flat-lay-of-handcraft.jpg"
+                src={product.image_url}
                 width={500}
                 height={200}
                 className="hidden md:block absolute inset-0 w-full h-full object-cover"
                 alt="Picture of the author"
               />
               <Image
-                src="https://st2.depositphotos.com/1177973/12314/i/450/depositphotos_123146230-stock-photo-flat-lay-of-handcraft.jpg"
+                src={product.image_url}
                 width={300}
                 height={200}
                 className="block md:hidden absolute inset-0 w-[45vw] h-[20vh] object-cover"
