@@ -1,8 +1,12 @@
-//import { useActionState } from 'react';
+'use client';
 
-export default function CreateProduct() {
-  //const initialState: State = { message: null, errors: {} };
-  //const [state, formAction] = useActionState(createInvoice, initialState);
+import { createProduct, State } from '../../../lib/actions';
+import { useActionState } from 'react';
+import { categories } from '../../../lib/placeholder-data';
+
+export default function Form() {
+  const initialState: State = { message: null, errors: {} };
+  const [state, formAction] = useActionState(createProduct, initialState);
 
   return (
     <div className='lg:mx-[10vw] mx-[8vw]'>
@@ -11,7 +15,7 @@ export default function CreateProduct() {
       </h1>
       <div>
         {/* PRODUCT FORM */}
-        <form action=''>
+        <form action={formAction}>
           <div className='rounded-md bg-gray-50 p-4 md:p-6'>
             <div className='mb-4'>
               <label
@@ -21,53 +25,94 @@ export default function CreateProduct() {
               </label>
               <input
                 id='product'
-                name='product'
+                name='name'
                 type='text'
                 placeholder='Enter a product name'
                 className='peer block w-full rounded-md border border-gray-200 py-2 pl-5 text-sm outline-2 placeholder:text-gray-500'
               />
             </div>
+
+            {/* Category */}
             <div className='mb-4'>
               <label
-                htmlFor='description'
+                htmlFor='category'
                 className='mb-2 block text-sm font-medium'>
-                Description
+                Choose category
               </label>
-              <input
-                id='description'
-                name='description'
-                type='text'
-                placeholder='Product description goes here'
-                className='peer block w-full rounded-md border border-gray-200 py-2 pl-5 text-sm outline-2 placeholder:text-gray-500'
-              />
-            </div>
-            <div className='mb-4'>
-              <label htmlFor='image'>Upload an Image</label>
-              <input type='file' name='image' id='image' />
-            </div>
-            <div className='mb-4'>
-              <label htmlFor='price' className='mb-2 block text-sm font-medium'>
-                Price
-              </label>
-              <input
-                type='number'
-                name='price'
-                id='price'
-                placeholder='100'
-                className='peer block w-full rounded-md border border-gray-200 py-2 pl-5 text-sm outline-2 placeholder:text-gray-500'
-              />
-            </div>
-            <div className='mb-4'>
-              <label htmlFor='stock' className='mb-2 block text-sm font-medium'>
-                Stock
-              </label>
-              <input
-                type='number'
-                name='stock'
-                id='stock'
-                placeholder='5'
-                className='peer block w-full rounded-md border border-gray-200 py-2 pl-5 text-sm outline-2 placeholder:text-gray-500'
-              />
+              <div className='relative'>
+                <select
+                  id='category'
+                  name='categoryId'
+                  className='peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500'
+                  defaultValue=''
+                  aria-describedby='category-error'>
+                  <option value='' disabled>
+                    Select a category
+                  </option>
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div id='category-error' aria-live='polite' aria-atomic='true'>
+                {state.errors?.categoryId &&
+                  state.errors.categoryId.map((error: string) => (
+                    <p className='mt-2 text-sm text-red-500' key={error}>
+                      {error}
+                    </p>
+                  ))}
+              </div>
+              {/* Description */}
+              <div className='mb-4'>
+                <label
+                  htmlFor='description'
+                  className='mb-2 block text-sm font-medium'>
+                  Description
+                </label>
+                <input
+                  id='description'
+                  name='description'
+                  type='text'
+                  placeholder='Product description goes here'
+                  className='peer block w-full rounded-md border border-gray-200 py-2 pl-5 text-sm outline-2 placeholder:text-gray-500'
+                />
+              </div>
+              {/* Image Upload */}
+              <div className='mb-4'>
+                <label htmlFor='image'>Upload an Image</label>
+                <input type='file' name='imageUrl' id='image' />
+              </div>
+              {/* Price and Stock */}
+              <div className='mb-4'>
+                <label
+                  htmlFor='price'
+                  className='mb-2 block text-sm font-medium'>
+                  Price
+                </label>
+                <input
+                  type='number'
+                  name='price'
+                  id='price'
+                  placeholder='100'
+                  className='peer block w-full rounded-md border border-gray-200 py-2 pl-5 text-sm outline-2 placeholder:text-gray-500'
+                />
+              </div>
+              <div className='mb-4'>
+                <label
+                  htmlFor='stock'
+                  className='mb-2 block text-sm font-medium'>
+                  Stock
+                </label>
+                <input
+                  type='number'
+                  name='stock'
+                  id='stock'
+                  placeholder='5'
+                  className='peer block w-full rounded-md border border-gray-200 py-2 pl-5 text-sm outline-2 placeholder:text-gray-500'
+                />
+              </div>
             </div>
 
             <div>
