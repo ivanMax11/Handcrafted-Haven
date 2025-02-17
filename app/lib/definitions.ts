@@ -14,18 +14,25 @@ export type Category = {
   name: string;
 };
 
+export type Comments = {
+  id: number;
+  product_id: number;
+  user_id: number;
+  comment_text: string;
+  created_at: string;
+};
 export type adaptedProfile = {
   bio: string;
   avatar_url: string;
 };
 
 export type AdapterUser = {
-  username: string,
-  name: string, // GitHub name
-  password: string,
-  email: string,
-  full_name: string,
-  bio: string,
-  profile_picture: string,
-  is_artisan: boolean,
+  username: string;
+  name: string; // GitHub name
+  password: string;
+  email: string;
+  full_name: string;
+  bio: string;
+  profile_picture: string;
+  is_artisan: boolean;
 };
