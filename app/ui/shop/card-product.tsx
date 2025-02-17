@@ -271,7 +271,7 @@ export default function CardProduct() {
             )
             .map((comment: Comments) => (
               <div
-                className="grid grid-cols-[1fr_min-content] lg:pb-[0.5] pb-[1vw] border-b-2 border-gray-300  w-100"
+                className="grid grid-cols-[1fr_min-content] gap-[1vw] lg:pb-[0.5] pb-[1vw] border-b-2 border-gray-300  w-100"
                 key={comment.id}
               >
                 <h2 className=" text-[#707070] font-semibold ">
