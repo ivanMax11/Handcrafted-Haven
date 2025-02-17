@@ -8,7 +8,8 @@ import { Comments } from "../../lib/definitions";
 import { Category } from "../../lib/definitions";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
+import Moment from "react-moment";
 
 export default function CardProduct() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -29,7 +30,7 @@ export default function CardProduct() {
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); 
+    handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -139,7 +140,7 @@ export default function CardProduct() {
         const newComment = await response.json();
         setComments([...comments, newComment]);
         setNewReview("");
-        toast.success("Review added successfully!")
+        toast.success("Review added successfully!");
         onCloseModal();
       } else {
         const errorData = await response.json();
@@ -246,19 +247,17 @@ export default function CardProduct() {
 
   return (
     <>
-    <ToastContainer
-    autoClose={3000}
-    />
+      <ToastContainer autoClose={3000} />
       <Modal
         open={open}
         onClose={onCloseModal}
         center
-        classNames={{ modal: isMobile ? "modal-mobile" : "" }} 
+        classNames={{ modal: isMobile ? "modal-mobile" : "" }}
         styles={{
           modal: {
             borderRadius: "1.2vw",
             padding: "3vw",
-            width: isMobile ? "90vw" : "30vw", 
+            width: isMobile ? "90vw" : "30vw",
           },
         }}
       >
@@ -271,10 +270,14 @@ export default function CardProduct() {
               (comment: Comments) => comment.product_id === selectedProduct.id
             )
             .map((comment: Comments) => (
-              <div className="lg:pb-[0.5] pb-[1vw]" key={comment.id}>
-                <h2 className=" text-[#707070] font-semibold border-b-2 border-gray-300 ">
+              <div
+                className="grid grid-cols-[1fr_min-content] lg:pb-[0.5] pb-[1vw] border-b-2 border-gray-300  w-100"
+                key={comment.id}
+              >
+                <h2 className=" text-[#707070] font-semibold ">
                   {comment.comment_text}
                 </h2>
+                <Moment format="YYYY/MM/DD ">{comment.created_at}</Moment>
               </div>
             ))}
 
