@@ -27,9 +27,9 @@ export default function CardProduct() {
       setIsMobile(window.innerWidth <= 768); // Ajusta el valor 768 según tus necesidades
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     handleResize(); // Llama a la función una vez al montar el componente
-    return () => window.removeEventListener('resize', handleResize); // Limpia el listener al desmontar
+    return () => window.removeEventListener("resize", handleResize); // Limpia el listener al desmontar
   }, []);
 
   const [open, setOpen] = useState(false);
@@ -130,7 +130,7 @@ export default function CardProduct() {
         body: JSON.stringify({
           product_id: selectedProduct.id,
           comment_text: newReview.trim(),
-          user_id: 1, 
+          user_id: 1,
         }),
       });
 
@@ -248,25 +248,28 @@ export default function CardProduct() {
         open={open}
         onClose={onCloseModal}
         center
-        classNames={{ modal: isMobile ? 'modal-mobile' : '' }} // Clase condicional
+        classNames={{ modal: isMobile ? "modal-mobile" : "" }} // Clase condicional
         styles={{
           modal: {
-            borderRadius: '1.2vw',
-            padding: '3vw',
-            width: isMobile ? '90vw' : '30vw' // Ancho condicional
+            borderRadius: "1.2vw",
+            padding: "3vw",
+            width: isMobile ? "90vw" : "30vw", // Ancho condicional
           },
         }}
-        
       >
-        <h1 className="text-[1.5vw] text-[#1d4ed8] lg:pb-[0.5] pb-[1vw]">Review</h1>
+        <h1 className="lg:text-[1.5vw] text-[5vw] text-[#1d4ed8] lg:pb-[0.5] pb-[1vw]">
+          Review
+        </h1>
         {selectedProduct &&
           comments
             .filter(
               (comment: Comments) => comment.product_id === selectedProduct.id
             )
             .map((comment: Comments) => (
-              <div className="lg:pb-[0.5] pb-[1vw]"  key={comment.id}>
-                <h2 className=" text-[#707070] font-semibold border-b-2 border-gray-300 ">{comment.comment_text}</h2>
+              <div className="lg:pb-[0.5] pb-[1vw]" key={comment.id}>
+                <h2 className=" text-[#707070] font-semibold border-b-2 border-gray-300 ">
+                  {comment.comment_text}
+                </h2>
               </div>
             ))}
 
