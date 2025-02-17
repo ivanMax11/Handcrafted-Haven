@@ -32,6 +32,9 @@ importers:
       react-responsive-modal:
         specifier: ^6.4.2
         version: 6.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-toastify:
+        specifier: ^11.0.3
+        version: 11.0.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       use-debounce:
         specifier: ^10.0.4
         version: 10.0.4(react@19.0.0)
@@ -1635,6 +1638,12 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
       react-dom: ^16.8.0 || ^17 || ^18
+
+  react-toastify@11.0.3:
+    resolution: {integrity: sha512-cbPtHJPfc0sGqVwozBwaTrTu1ogB9+BLLjd4dDXd863qYLj7DGrQ2sg5RAChjFUB4yc3w8iXOtWcJqPK/6xqRQ==}
+    peerDependencies:
+      react: ^18 || ^19
+      react-dom: ^18 || ^19
 
   react@19.0.0:
     resolution: {integrity: sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==}
@@ -3738,6 +3747,12 @@ snapshots:
       '@bedrock-layout/use-forwarded-ref': 1.6.1(react@19.0.0)
       body-scroll-lock: 3.1.5
       classnames: 2.5.1
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+
+  react-toastify@11.0.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      clsx: 2.1.1
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 

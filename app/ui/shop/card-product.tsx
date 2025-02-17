@@ -8,6 +8,7 @@ import { Comments } from "../../lib/definitions";
 import { Category } from "../../lib/definitions";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function CardProduct() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -138,7 +139,8 @@ export default function CardProduct() {
         const newComment = await response.json();
         setComments([...comments, newComment]);
         setNewReview("");
-        alert("Review added successfully!");
+        toast("Review added successfully!")
+        onCloseModal();
       } else {
         const errorData = await response.json();
         console.error("Error adding review:", response.status, errorData);
@@ -244,6 +246,7 @@ export default function CardProduct() {
 
   return (
     <>
+    <ToastContainer />
       <Modal
         open={open}
         onClose={onCloseModal}
