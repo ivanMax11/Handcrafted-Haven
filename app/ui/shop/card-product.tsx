@@ -139,7 +139,7 @@ export default function CardProduct() {
         const newComment = await response.json();
         setComments([...comments, newComment]);
         setNewReview("");
-        toast("Review added successfully!")
+        toast.success("Review added successfully!")
         onCloseModal();
       } else {
         const errorData = await response.json();
@@ -246,7 +246,9 @@ export default function CardProduct() {
 
   return (
     <>
-    <ToastContainer />
+    <ToastContainer
+    autoClose={3000}
+    />
       <Modal
         open={open}
         onClose={onCloseModal}
