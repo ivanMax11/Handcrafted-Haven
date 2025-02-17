@@ -20,17 +20,6 @@ export default function CardProduct() {
   const [comments, setComments] = useState<Comments[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [newReview, setNewReview] = useState<string>("");
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Ajusta el valor 768 según tus necesidades
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Llama a la función una vez al montar el componente
-    return () => window.removeEventListener('resize', handleResize); // Limpia el listener al desmontar
-  }, []);
 
   const [open, setOpen] = useState(false);
 
@@ -119,7 +108,7 @@ export default function CardProduct() {
   };
 
   const handleAddReview = async () => {
-    if (!selectedProduct || !newReview.trim()) return;
+    if (!selectedProduct || !newReview.trim()) return; // Make sure user is available
 
     try {
       const response = await fetch("/query/comments", {
@@ -130,13 +119,13 @@ export default function CardProduct() {
         body: JSON.stringify({
           product_id: selectedProduct.id,
           comment_text: newReview.trim(),
-          user_id: 1, 
+          user_id: 1, // Use the actual user ID
         }),
       });
 
       if (response.ok) {
-        const newComment = await response.json();
-        setComments([...comments, newComment]);
+        const newComment = await response.json(); // Get the newly created comment from the response
+        setComments([...comments, newComment]); // Add the new comment to the state
         setNewReview("");
         alert("Review added successfully!");
       } else {
@@ -248,25 +237,19 @@ export default function CardProduct() {
         open={open}
         onClose={onCloseModal}
         center
-        classNames={{ modal: isMobile ? 'modal-mobile' : '' }} // Clase condicional
         styles={{
-          modal: {
-            borderRadius: '1.2vw',
-            padding: '3vw',
-            width: isMobile ? '90vw' : '30vw' // Ancho condicional
-          },
+          modal: { borderRadius: "1.2vw", padding: "3vw", width: "30vw" },
         }}
-        
       >
-        <h1 className="text-[1.5vw] text-[#1d4ed8] lg:pb-[0.5] pb-[1vw]">Review</h1>
+        <h1>Review</h1>
         {selectedProduct &&
           comments
             .filter(
               (comment: Comments) => comment.product_id === selectedProduct.id
             )
             .map((comment: Comments) => (
-              <div className="lg:pb-[0.5] pb-[1vw]"  key={comment.id}>
-                <h2 className=" text-[#707070] font-semibold border-b-2 border-gray-300 ">{comment.comment_text}</h2>
+              <div key={comment.id}>
+                <h2>{comment.comment_text}</h2>
               </div>
             ))}
 
