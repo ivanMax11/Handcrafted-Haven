@@ -1,13 +1,13 @@
 import Footer from "../app/ui/home/footer";
-import Image from "next/image";
+//import Image from "next/image";
 import Header from "../app/ui/home/header";
 import Link from "next/link";
 import { roboto } from "../app/ui/fonts";
 import type { Metadata } from "next";
-
+import HomeProduct from "../app/ui/shop/product-list";
 
 export const metadata: Metadata = {
-  title: 'Handcrafted',
+  title: "Handcrafted",
 };
 
 export default function Home() {
@@ -40,7 +40,11 @@ export default function Home() {
           </button>
         </div>
       </section>
-      <section className="grid grid-cols-1 bg-[#f9fafb] lg:p-[2vw] p-[5vw]">
+      <div>
+        <HomeProduct />
+      </div>
+
+      {/* <section className="grid grid-cols-1 bg-[#f9fafb] lg:p-[2vw] p-[5vw]">
         <h1 className="font-extrabold text-center lg:py-[1vw] py-[3vw]">
           Popular Categories
         </h1>
@@ -186,7 +190,7 @@ export default function Home() {
             <p className="text-blue-500">99$</p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section>
         <Footer />
