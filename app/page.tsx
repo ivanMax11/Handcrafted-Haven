@@ -11,7 +11,6 @@ import { Category, Product } from "../app/lib/definitions";
 
 export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
-  // const [products, setProducts] = useState<Product[]>([]);
   const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
 
   useEffect(() => {
