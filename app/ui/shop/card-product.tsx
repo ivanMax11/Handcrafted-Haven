@@ -24,12 +24,12 @@ export default function CardProduct() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Ajusta el valor 768 según tus necesidades
+      setIsMobile(window.innerWidth <= 768);
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // Llama a la función una vez al montar el componente
-    return () => window.removeEventListener("resize", handleResize); // Limpia el listener al desmontar
+    handleResize(); 
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const [open, setOpen] = useState(false);
@@ -248,12 +248,12 @@ export default function CardProduct() {
         open={open}
         onClose={onCloseModal}
         center
-        classNames={{ modal: isMobile ? "modal-mobile" : "" }} // Clase condicional
+        classNames={{ modal: isMobile ? "modal-mobile" : "" }} 
         styles={{
           modal: {
             borderRadius: "1.2vw",
             padding: "3vw",
-            width: isMobile ? "90vw" : "30vw", // Ancho condicional
+            width: isMobile ? "90vw" : "30vw", 
           },
         }}
       >
