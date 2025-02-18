@@ -36,6 +36,7 @@ export default function CreateProductForm() {
       console.error('Error uploading image:', error);
     }
   };
+
   // const handleSubmit = async (e) => {
   return (
     <div className='lg:mx-[10vw] mx-[8vw]'>
@@ -71,7 +72,7 @@ export default function CreateProductForm() {
               </label>
               <div className='relative'>
                 <select
-                  id='category'
+                  id='categoryId'
                   name='categoryId'
                   className='peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500'
                   defaultValue=''
@@ -80,7 +81,7 @@ export default function CreateProductForm() {
                     Select a category
                   </option>
                   {categories.map((category) => (
-                    <option key={category.name} value={category.name}>
+                    <option key={category.id} value={category.id}>
                       {category.name}
                     </option>
                   ))}

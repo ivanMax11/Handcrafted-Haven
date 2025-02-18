@@ -8,8 +8,8 @@ import { redirect } from 'next/navigation';
 const FormSchema = z.object({
   productId: z.string(),
   userId: z.string(),
-  categoryId: z.string({
-    invalid_type_error: 'Please select a category.',
+  categoryId: z.number().positive({
+    message: 'Please select a category.',
   }),
   name: z.string().min(1, { message: 'Name is required' }),
   description: z.string().optional(),
@@ -74,12 +74,13 @@ export async function createProduct(prevState: State, formData: FormData) {
   //     e.preventDefault();
   //     if (!selectedFile) return;
 
+  console.log(formData);
   // Validate the form data using Zod schema
   const productInfo = CreateProduct.safeParse({
     productId: formData.get('productId'),
     userId: formData.get('userId'),
     name: formData.get('name'),
-    categoryId: 1,
+    categoryId: Number(formData.get('categoryId')),
     description: formData.get('description'),
     imageUrl: formData.get('imageUrl'),
     price: Number(formData.get('price')),
@@ -98,13 +99,13 @@ export async function createProduct(prevState: State, formData: FormData) {
   console.log('Validation successful');
   // Prepare data for insertion into the database
   const timeStamp = new Date().toISOString();
-  const { userId, name, /*categoryId,*/ description, imageUrl, price, stock } =
+  const { userId, name, categoryId, description, imageUrl, price, stock } =
     productInfo.data;
 
   //test data ***********
   //const imageUrl = 'handrafted 2.jpg';
   //const userId = 1;
-  const categoryId = 1;
+  //const categoryId = 1;
 
   console.log(imageUrl);
 
