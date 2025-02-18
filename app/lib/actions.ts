@@ -1,4 +1,5 @@
 'use server';
+
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
@@ -79,3 +80,17 @@ export async function createProduct(prevState: State, formData: FormData) {
   revalidatePath('/shop/products');
   redirect('/shop/products');
 }
+=======
+
+// export async function createComments() {
+//   const { comment_text, product_id, user_id } = req.body;
+//   try {
+//     await sql`
+//     INSERT INTO comments (product_id, user_id, comment_text) VALUES (${product_id}, ${user_id}, ${comment_text})`;
+//   } catch (error) {
+//     console.error(error);
+//   }
+//   revalidatePath("/shop/products");
+//   redirect("/shop/products");
+// }
+

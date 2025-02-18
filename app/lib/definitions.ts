@@ -1,34 +1,39 @@
-export type user = {
-    id: string;
-    name: string;
-    lastname: string;
-    email: string;
-    image: string;
-    password: string;
-    role: string;
-}
+export type Product = {
+  user_id: number;
+  name: string;
+  category_id: number;
+  description: string;
+  image_url: string;
+  price: number;
+  stock: string;
+  id: number;
+};
 
-export type review = {
-    id: string;
-    userId: string;
-    productId: string;
-    rating: number;
-    comment: string;
-}
+export type Category = {
+  id: number;
+  name: string;
+  image_url: string;
+};
 
-export type product = {
-    id: string;
-    name: string;
-    price: number;
-    description: string;
-    image: string;
-    quantity: number;
-    category: string;
-    reviews: review[];
-}
+export type Comments = {
+  id: number;
+  product_id: number;
+  user_id: number;
+  comment_text: string;
+  created_at: string;
+};
+export type adaptedProfile = {
+  bio: string;
+  avatar_url: string;
+};
 
-// export type cartItem = {
-//     productId: string;
-//     quantity: number;
-// }
-
+export type AdapterUser = {
+  username: string;
+  name: string; // GitHub name
+  password: string;
+  email: string;
+  full_name: string;
+  bio: string;
+  profile_picture: string;
+  is_artisan: boolean;
+};
