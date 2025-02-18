@@ -32,12 +32,12 @@ export type State = {
     price?: string[];
     stock?: string[];
   };
-  message?: string | null;
+  message: string;
 };
 
 const CreateProduct = FormSchema.omit({ productId: true });
 
-export async function uploadImage(file) {
+export async function uploadImage(file: File) {
   try {
     const formData = new FormData();
     formData.append('file', file); // 'file' is the key your storage service expects.
