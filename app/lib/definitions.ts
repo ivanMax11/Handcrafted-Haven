@@ -17,9 +17,12 @@ export type Category = {
 export type adaptedProfile = {
   bio: string;
   avatar_url: string;
+  full_name: string,
+
 };
 
 export type AdapterUser = {
+  id: number;
   username: string,
   name: string, // GitHub name
   password: string,
@@ -28,4 +31,14 @@ export type AdapterUser = {
   bio: string,
   profile_picture: string,
   is_artisan: boolean,
+};
+
+export type Session = {
+  user: {
+    id: string;
+    full_name?: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
 };
