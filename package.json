@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@uploadthing/react": "^7.3.0",
     "@vercel/postgres": "^0.10.0",
     "bcrypt": "^5.1.1",
     "clsx": "^2.1.1",
