@@ -1,5 +1,15 @@
+"use client"
+
 import { Metadata } from "next";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { registerUser } from "../../lib/actions";
+import { signIn } from "next-auth/react";
+
+
+
+
 
 // import Image from "next/image";
 
@@ -7,8 +17,45 @@ export const metadata: Metadata = {
   title: "Register",
 };
 
+//const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => { };
+
 export default function FormRegister() {
-  const isRegistrationDisabled = true; // Set to true to disable registration
+  const isRegistrationDisabled = false; // Set to true to disable registration
+
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+
+    // Collect form data
+    const formData = new FormData(e.currentTarget);
+
+    // Call server action
+    const response = await registerUser(formData);
+
+    if (response.error) {
+      setError(response.error);
+      setIsSubmitting(false);
+    } else {
+      // ✅ Automatically sign in the user after registration
+      const signInResponse = await signIn("credentials", {
+        redirect: false, // Don't redirect yet, handle manually
+        email: formData.get("email") as string,
+        password: formData.get("password") as string,
+      });
+
+      if (signInResponse?.error) {
+        setError("Login failed. Please try to log in manually.");
+        setIsSubmitting(false);
+      } else {
+        router.push("/profile"); // ✅ Redirect to profile after login
+      }
+    }
+  };
 
   return (
     <main>
@@ -41,23 +88,25 @@ export default function FormRegister() {
               </div>
             ) : (
 
-              <form className="space-y-6" action="#" method="POST">
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                {error && <p className="text-red-500 text-sm">{error}</p>}
+
                 <div>
                   <label
                     htmlFor="text"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Name
+                    Full Name
                   </label>
                   <div className="mt-1">
                     <input
                       id="text"
-                      name="text"
+                      name="full_name"
                       type="text"
                       autoComplete="text"
                       required
                       className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                      placeholder="Enter your name"
+                      placeholder="Enter your name and Lastname"
                     />
                   </div>
                 </div>
@@ -66,17 +115,17 @@ export default function FormRegister() {
                     htmlFor="text"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Lastname
+                    Username
                   </label>
                   <div className="mt-1">
                     <input
                       id="text"
-                      name="text"
+                      name="username"
                       type="text"
                       autoComplete="text"
                       required
                       className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                      placeholder="Enter your lastname"
+                      placeholder="Enter a Username"
                     />
                   </div>
                 </div>
@@ -123,9 +172,10 @@ export default function FormRegister() {
                 <div>
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
-                    Register
+                    {isSubmitting ? "Registering..." : "Register"}
                   </button>
                 </div>
               </form>
