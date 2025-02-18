@@ -1,18 +1,42 @@
 'use client';
 
-import { createProduct, State } from '../../lib/actions';
+import { createProduct, State, uploadImage } from '../../lib/actions';
 import { useActionState } from 'react';
 import { categories } from '../../lib/placeholder-data';
 //import { useSession } from 'next-auth/react';
+import { useState } from 'react';
 
 export default function CreateProductForm() {
   const initialState: State = { message: null, errors: {} };
   const [state, formAction] = useActionState(createProduct, initialState);
+
   //const { data: session } = useSession();
   //const userId = session?.user.id;
   // test data ***********
   const userId = 1;
 
+  //image uploading stuff
+  const [imageUrl, setImageUrl] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleImageChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!selectedFile) return;
+
+    try {
+      const imageUrl = await uploadImage(selectedFile);
+      setImageUrl(imageUrl);
+      // Now you have the imageUrl.  You can save it to your database.
+      console.log('Image URL:', imageUrl);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  };
+  // const handleSubmit = async (e) => {
   return (
     <div className='lg:mx-[10vw] mx-[8vw]'>
       <h1 className='mx-2 text-gray-900 lg:text-[2vw] text-[4vw] text-nowrap flex'>
@@ -85,11 +109,11 @@ export default function CreateProductForm() {
                   className='peer block w-full rounded-md border border-gray-200 py-2 pl-5 text-sm outline-2 placeholder:text-gray-500'
                 />
               </div>
-              {/* Image Upload 
+              {/* Image Upload */}
               <div className='mb-4'>
                 <input type='file' onChange={handleImageChange} />
                 {imageUrl && <img src={imageUrl} alt='Uploaded Image' />}
-              </div> */}
+              </div>
               {/* Price and Stock */}
               <div className='mb-4'>
                 <label
