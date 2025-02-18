@@ -81,8 +81,8 @@ export default function Form() {
               </div>
               {/* Image Upload */}
               <div className='mb-4'>
-                <label htmlFor='image'>Upload an Image</label>
-                <input type='file' name='imageUrl' id='image' />
+                <input type='file' onChange={handleImageChange} />
+                {imageUrl && <img src={imageUrl} alt='Uploaded Image' />}
               </div>
               {/* Price and Stock */}
               <div className='mb-4'>
