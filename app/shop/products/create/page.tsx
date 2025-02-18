@@ -1,6 +1,6 @@
 //import { signOut } from 'next-auth/react';
 //import { getServerSession } from 'next-auth';
-import CreateProductForm from '@/ui/shop/create-product-form';
+import CreateProductForm from '../../../ui/shop/create-product-form';
 //import { redirect } from 'next/navigation';
 
 export default async function Form() {

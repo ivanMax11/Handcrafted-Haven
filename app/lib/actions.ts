@@ -72,7 +72,7 @@ export async function createProduct(prevState: State, formData: FormData) {
   } = productInfo.data;
 
   //test data ***********
-  const imageUrl = '../public/handrafted 2.jpg';
+  const imageUrl = '/public/handrafted 2.jpg';
   //const userId = 1;
   const categoryId = 1;
 
