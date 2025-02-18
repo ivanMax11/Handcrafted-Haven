@@ -12,8 +12,16 @@ export type Product = {
 export type Category = {
   id: number;
   name: string;
+  image_url: string;
 };
 
+export type Comments = {
+  id: number;
+  product_id: number;
+  user_id: number;
+  comment_text: string;
+  created_at: string;
+};
 export type adaptedProfile = {
   bio: string;
   avatar_url: string;
@@ -31,6 +39,7 @@ export type AdapterUser = {
   bio: string,
   profile_picture: string,
   is_artisan: boolean,
+
 };
 
 export type Session = {
