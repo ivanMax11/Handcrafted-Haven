@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 import { sql } from "@vercel/postgres";
 
 import { z } from 'zod';
-import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -42,9 +41,6 @@ export async function registerUser(formData: FormData) {
         return { error: "Failed to register user." };
     }
 }
-=======
-'use server';
-
 
 // Zod schema for validating the form data
 const FormSchema = z.object({
