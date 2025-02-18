@@ -2,10 +2,10 @@
 import { roboto } from '../fonts';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { Product } from '@/lib/definitions';
-import { Comments } from '@/lib/definitions';
+import { Product } from '../../lib/definitions';
+import { Comments } from '../../lib/definitions';
 
-import { Category } from '@/lib/definitions';
+import { Category } from '../..//lib/definitions';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 

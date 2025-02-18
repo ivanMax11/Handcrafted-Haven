@@ -7,23 +7,23 @@ import { categories } from '../../lib/placeholder-data';
 import { useState } from 'react';
 
 export default function CreateProductForm() {
-  const initialState: State = { message: null, errors: {} };
+  const initialState: State = { message: '', errors: {} };
   const [state, formAction] = useActionState(createProduct, initialState);
 
-  //const { data: session } = useSession();
-  //const userId = session?.user.id;
-  // test data ***********
+
   const userId = 1;
 
   //image uploading stuff
-  const [imageUrl, setImageUrl] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const handleImageChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedFile(e.target.files[0]);
+    }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!selectedFile) return;
 
@@ -37,7 +37,6 @@ export default function CreateProductForm() {
     }
   };
 
-  // const handleSubmit = async (e) => {
   return (
     <div className='lg:mx-[10vw] mx-[8vw]'>
       <h1 className='mx-2 text-gray-900 lg:text-[2vw] text-[4vw] text-nowrap flex'>
