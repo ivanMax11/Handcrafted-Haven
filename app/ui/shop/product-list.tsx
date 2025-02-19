@@ -72,7 +72,7 @@ export default function HomeProduct() {
           <div key={product.id} className="flex font-roboto">
             <div className="flex-none w-48 relative">
               {/* Wrapping image with a Link to product details */}
-              <Link href={`/product/${product.id}`}>
+              <Link className="text-black" href="/shop/products">
                 <Image
                   src={`${product.image_url}`}
                   width={500}
