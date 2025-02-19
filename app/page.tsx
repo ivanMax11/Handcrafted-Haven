@@ -1,39 +1,32 @@
 "use client";
-
 import Footer from "../app/ui/home/footer";
-import Image from "next/image";
 import Header from "../app/ui/home/header";
 import Link from "next/link";
 import { roboto } from "../app/ui/fonts";
-import { useEffect, useState } from "react";
-import { Category, Product } from "../app/lib/definitions";
+import { useSession } from "next-auth/react";
 
+// import HomeProduct from "../app/ui/home/homeProduct"
+import { useState, useEffect } from "react";
+import React from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Home() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  // const [products, setProducts] = useState<Product[]>([]);
-  const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
+  const { data: session } = useSession();
+
+  const [hasShown, setHasShown] = useState(false);
 
   useEffect(() => {
-    const getProducts = async () => {
-      const response = await fetch("/query/products");
-      const dataProduct = await response.json();
-      setDisplayedProducts(dataProduct.slice(0, 4));
-    };
+    if (session && !hasShown) {
+      const name = session?.user?.name || session?.user;
 
-    getProducts();
-  }, []);
-  useEffect(() => {
-    const getCategories = async () => {
-      const response = await fetch("/query/categories");
-      const data = await response.json();
-      setCategories(data);
-    };
-    getCategories();
-  }, []);
+      toast.success(`Welcome ${name}!`);
 
+      setHasShown(true);
+    }
+  }, [session, hasShown]);
   return (
     <div className={`${roboto.className} font-roboto`}>
+      <ToastContainer />
       <section>
         <Header />
       </section>
@@ -61,37 +54,70 @@ export default function Home() {
           </button>
         </div>
       </section>
-      <section className="grid grid-cols-1 bg-[#f9fafb] lg:p-[2vw] p-[5vw]">
+      {/* <div><HomeProduct /></div> */}
+
+      {/* <section className="grid grid-cols-1 bg-[#f9fafb] lg:p-[2vw] p-[5vw]">
         <h1 className="font-extrabold text-center lg:py-[1vw] py-[3vw]">
           Popular Categories
         </h1>
-
         <div className="grid lg:grid-cols-3 grid-cols-1 justify-self-center  gap-[5vw] px-[10vw]">
-          {categories.map((category) => (
-            <div key={category.id} className="relative">
-              <div className="rounded-lg p-2">
-                <p className=" ">{category.name}</p>
-              </div>
-              <Link className="text-black" href="/shop/products">
-                <Image
-                  src={category.image_url}
-                  width={500}
-                  height={200}
-                  className="hidden md:block lg:w-[20vw] lg:h-[12vw]"
-                  alt="hand-desktop"
-                />
-              </Link>
-              <Link className="text-black" href="/shop/products">
-                <Image
-                  src={category.image_url}
-                  width={340}
-                  height={620}
-                  className="block md:hidden"
-                  alt="hand-mobile"
-                />
-              </Link>
+          <div className="relative p-4 bg-white border justify-self-center border-solid border-gray-200 rounded-lg ">
+            <Image
+              src={"/handcrafted.jpg"}
+              width={500}
+              height={200}
+              className="hidden md:block"
+              alt="hand-desktop"
+            />
+            <Image
+              src={"/handcrafted.jpg"}
+              width={340}
+              height={620}
+              className="block md:hidden"
+              alt="hand-mobile"
+            />
+            <div className="bg-[#7d7e7f] border absolute lg:top-[9.8vw] lg:w-[19.8vw] top-[28vw] w-[62vw]  rounded-lg p-2">
+              <p className="text-gray-300">Pottery</p>
             </div>
-          ))}
+          </div>
+          <div className="relative p-4 bg-white border border-solid border-gray-200 rounded-lg">
+            <Image
+              src={"/handcrafted 2.jpg"}
+              width={500}
+              height={200}
+              className="hidden md:block"
+              alt="hand-desktop"
+            />
+            <Image
+              src={"/handcrafted 2.jpg"}
+              width={340}
+              height={620}
+              className="block md:hidden"
+              alt="hand-mobile"
+            />
+            <div className="bg-[#7d7e7f] border absolute lg:top-[12vw] top-[35vw] lg:w-[19.8vw] w-[62vw]  rounded-lg p-2">
+              <p className="text-gray-300">Pottery</p>
+            </div>
+          </div>
+          <div className="relative p-4 bg-white border border-solid border-gray-200 rounded-lg">
+            <Image
+              src={"/handcrafted 3.jpg"}
+              width={500}
+              height={200}
+              className="hidden md:block"
+              alt="hand-desktop"
+            />
+            <Image
+              src={"/handcrafted 3.jpg"}
+              width={340}
+              height={620}
+              className="block md:hidden"
+              alt="hand-mobile"
+            />
+            <div className="bg-[#7d7e7f] border absolute lg:top-[12vw]  top-[38vw] lg:w-[19.8vw] w-[62vw]  rounded-lg p-2">
+              <p className="text-gray-300">Hand</p>
+            </div>
+          </div>
         </div>
       </section>
       <section className="grid grid-cols-1 bg-[#ffffff] lg:p-[2vw] p-[5vw]">
@@ -99,32 +125,84 @@ export default function Home() {
           Featured Products
         </h1>
         <div className="grid lg:grid-cols-4 grid-cols-1 justify-self-center  gap-[5vw] px-[10vw]">
-          {displayedProducts.map((product) => (
-            <div
-              key={product.id}
-              className="p-4 bg-white border border-solid border-gray-200 rounded-lg"
-            >
-              <Image
-                src={product.image_url}
-                width={500}
-                height={200}
-                className="hidden md:block w-[20vw] h-[12vw]"
-                alt="hand-desktop"
-              />
-              <Image
-                src={product.image_url}
-                width={340}
-                height={620}
-                className="block md:hidden w-[30vw] h-[40vw]"
-                alt="hand-mobile"
-              />
-              <h3 className="font-bold">{product.name}</h3>
-              <p className="text-gray-400">{product.description}</p>
-              <p className="text-blue-500">{product.price}$</p>
-            </div>
-          ))}
+          <div className="p-4 bg-white border border-solid border-gray-200 rounded-lg">
+            <Image
+              src={"/hand.jpg"}
+              width={500}
+              height={200}
+              className="hidden md:block"
+              alt="hand-desktop"
+            />
+            <Image
+              src={"/hand.jpg"}
+              width={340}
+              height={620}
+              className="block md:hidden"
+              alt="hand-mobile"
+            />
+            <h3 className="font-bold">Handmade</h3>
+            <p className="text-gray-400">By Maria Cuaro</p>
+            <p className="text-blue-500">99$</p>
+          </div>
+          <div className="p-4 bg-white border border-solid border-gray-200 rounded-lg">
+            <Image
+              src={"/handcrafted.jpg"}
+              width={500}
+              height={200}
+              className="hidden md:block"
+              alt="hand-desktop"
+            />
+            <Image
+              src={"/handcrafted.jpg"}
+              width={340}
+              height={620}
+              className="block md:hidden"
+              alt="hand-mobile"
+            />
+            <h3 className="font-bold">Handmade</h3>
+            <p className="text-gray-400">By Maria Cuaro</p>
+            <p className="text-blue-500">99$</p>
+          </div>
+          <div className="p-4 bg-white border border-solid border-gray-200 rounded-lg">
+            <Image
+              src={"/handcrafted 2.jpg"}
+              width={500}
+              height={200}
+              className="hidden md:block"
+              alt="hand-desktop"
+            />
+            <Image
+              src={"/handcrafted 2.jpg"}
+              width={340}
+              height={620}
+              className="block md:hidden"
+              alt="hand-mobile"
+            />
+            <h3 className="font-bold">Handmade</h3>
+            <p className="text-gray-400">By Maria Cuaro</p>
+            <p className="text-blue-500">99$</p>
+          </div>
+          <div className="p-4 bg-white border border-solid border-gray-200 rounded-lg">
+            <Image
+              src={"/handcrafted 3.jpg"}
+              width={500}
+              height={200}
+              className="hidden md:block"
+              alt="hand-desktop"
+            />
+            <Image
+              src={"/handcrafted 3.jpg"}
+              width={340}
+              height={620}
+              className="block md:hidden"
+              alt="hand-mobile"
+            />
+            <h3 className="font-bold">Handmade</h3>
+            <p className="text-gray-400">By Maria Cuaro</p>
+            <p className="text-blue-500">99$</p>
+          </div>
         </div>
-      </section>
+      </section> */}
 
       <section>
         <Footer />
