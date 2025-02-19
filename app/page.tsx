@@ -4,8 +4,8 @@ import Header from "../app/ui/home/header";
 import Link from "next/link";
 import { roboto } from "../app/ui/fonts";
 import { useSession } from "next-auth/react";
+import HomeProduct from "../app/ui/shop/product-list";
 
-// import HomeProduct from "../app/ui/home/homeProduct"
 import { useState, useEffect } from "react";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
