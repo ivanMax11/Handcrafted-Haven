@@ -15,14 +15,14 @@ export default function About() {
         <Header />
       </section>
       <div className="lg:px-[8vw] px-[2vw]">
-        <h1 className="text-[6vw] lg:text-[2vw] text-center py-[2vw]">
-          About handcrafted
+        <h1 className="text-[6vw] lg:text-[2vw] font-semibold  text-gray-500 text-center py-[2vw]">
+          About handcrafted Haven
         </h1>
 
         <div className="grid lg:grid-cols-2 grid-cols-1 lg:p-[2vw] p-[5vw] gap-[2vw]">
           <div className="lg:flex grid gap-[2vw]">
             <div>
-              <h1 className="text-[5vw] lg:text-[1.5vw]">Mision</h1>
+              <h1 className="text-[5vw] text-gray-600 lg:text-[1.5vw]">Mision</h1>
 
               <Image
                 src={"/hand(2).jpg"}
@@ -48,7 +48,7 @@ export default function About() {
           </div>
           <div className="lg:flex grid gap-[2vw]">
             <div>
-              <h1 className="text-[5vw] lg:text-[1.5vw]">Vision</h1>
+              <h1 className="text-[5vw] lg:text-[1.5vw] text-gray-600">Vision</h1>
 
               <Image
                 src={"/hand(3).jpg"}
