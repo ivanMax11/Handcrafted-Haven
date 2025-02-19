@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 
 interface ProfileBioProps {
   bio: string;
-  location: string;
-  registeredAt: string;
+  //location: string;
+  //registeredAt: string;
   isEditable?: boolean;
   onBioChange?: (newBio: string) => void;
   onLocationChange?: (newLocation: string) => void;
@@ -12,8 +12,8 @@ interface ProfileBioProps {
 
 const ProfileBio: React.FC<ProfileBioProps> = ({
   bio,
-  location,
-  registeredAt,
+  //location,
+  //registeredAt,
   isEditable = false,
   onBioChange,
   onLocationChange,
@@ -28,10 +28,10 @@ const ProfileBio: React.FC<ProfileBioProps> = ({
     setEditingBio(false);
   };
 
-  const handleLocationChange = () => {
-    if (onLocationChange) onLocationChange(newLocation);
-    setEditingLocation(false);
-  };
+  // const handleLocationChange = () => {
+  //   if (onLocationChange) onLocationChange(newLocation);
+  //   setEditingLocation(false);
+  // };
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
@@ -53,8 +53,8 @@ const ProfileBio: React.FC<ProfileBioProps> = ({
       ) : (
         <p className="mt-2 text-gray-700">{bio}</p>
       )}
-      
-      <h3 className="mt-4 text-lg font-semibold">Location</h3>
+
+      {/* <h3 className="mt-4 text-lg font-semibold">Location</h3>
       {editingLocation ? (
         <div className="mt-2">
           <input
@@ -71,10 +71,9 @@ const ProfileBio: React.FC<ProfileBioProps> = ({
           </button>
         </div>
       ) : (
-        <p className="mt-2 text-gray-700">{location}</p>
-      )}
+      <p className="mt-2 text-gray-700">{location}</p> */}
 
-      <h4 className="mt-4 text-sm text-gray-500">Registered since: {registeredAt}</h4>
+      {/* <h4 className="mt-4 text-sm text-gray-500">Registered since: {registeredAt}</h4> */}
 
       {isEditable && (
         <div className="mt-4 flex space-x-4">
