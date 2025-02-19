@@ -35,6 +35,10 @@ declare module "next-auth" {
         bio: string,
         profile_picture: string,
         is_artisan: boolean,
+        avatar?: string | null, // GitHub avatar
+        location?: string | null,
+        createdAt?: string | null,
+        socialLinks?: socialLinks | null,
     }
 
     interface Session {

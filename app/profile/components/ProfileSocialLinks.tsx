@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import { useState } from 'react'
 
 type SocialLink = {
@@ -55,10 +56,10 @@ const SocialLinks = ({ links }: SocialLinksProps) => {
           ))}
 
           <button onClick={handleAddLink} className="bg-blue-500 text-white px-3 py-1 rounded">
-            + Agregar Link
+            + Add Link
           </button>
           <button onClick={() => setIsEditing(false)} className="bg-green-500 text-white px-3 py-1 rounded">
-            Guardar
+            Save
           </button>
         </div>
       ) : (
@@ -72,11 +73,11 @@ const SocialLinks = ({ links }: SocialLinksProps) => {
               </p>
             ))
           ) : (
-            <p className="text-gray-500">No hay enlaces sociales.</p>
+            <p className="text-gray-500">Is not social links.</p>
           )}
 
           <button onClick={() => setIsEditing(true)} className="mt-2 text-blue-500">
-            ✏️ Editar
+            ✏️ Edit
           </button>
         </div>
       )}
