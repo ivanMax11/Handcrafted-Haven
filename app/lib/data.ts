@@ -1,4 +1,4 @@
-import { sql } from "@vercel/postgres";
+import { sql } from '@vercel/postgres';
 
 export async function getProducts() {
   try {
@@ -8,7 +8,7 @@ export async function getProducts() {
     client.release();
     return data.rows;
   } catch (error) {
-    console.error("Error fetching product data", error);
-    throw new Error("Failed to fetch invoice.");
+    console.error('Error fetching product data', error);
+    throw new Error('Failed to fetch invoice.');
   }
 }

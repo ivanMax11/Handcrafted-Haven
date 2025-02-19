@@ -1,18 +1,32 @@
+"use client";
 import Footer from "../app/ui/home/footer";
-import Image from "next/image";
 import Header from "../app/ui/home/header";
 import Link from "next/link";
 import { roboto } from "../app/ui/fonts";
-import type { Metadata } from "next";
+import { useSession } from "next-auth/react";
+import HomeProduct from "../app/ui/shop/product-list";
 
-
-export const metadata: Metadata = {
-  title: 'Handcrafted',
-};
+import { useState, useEffect } from "react";
+import React from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Home() {
+  const { data: session } = useSession();
+
+  const [hasShown, setHasShown] = useState(false);
+
+  useEffect(() => {
+    if (session && !hasShown) {
+      const name = session?.user?.name || session?.user;
+
+      toast.success(`Welcome ${name}!`);
+
+      setHasShown(true);
+    }
+  }, [session, hasShown]);
   return (
     <div className={`${roboto.className} font-roboto`}>
+      <ToastContainer />
       <section>
         <Header />
       </section>
@@ -40,7 +54,11 @@ export default function Home() {
           </button>
         </div>
       </section>
-      <section className="grid grid-cols-1 bg-[#f9fafb] lg:p-[2vw] p-[5vw]">
+      <div>
+        <HomeProduct />
+      </div>
+
+      {/* <section className="grid grid-cols-1 bg-[#f9fafb] lg:p-[2vw] p-[5vw]">
         <h1 className="font-extrabold text-center lg:py-[1vw] py-[3vw]">
           Popular Categories
         </h1>
@@ -186,7 +204,7 @@ export default function Home() {
             <p className="text-blue-500">99$</p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section>
         <Footer />
