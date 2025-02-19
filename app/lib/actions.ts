@@ -43,9 +43,6 @@ export async function registerUser(formData: FormData) {
     }
 }
 
-'use server';
-
-
 // Zod schema for validating the form data
 const FormSchema = z.object({
   productId: z.string(),
