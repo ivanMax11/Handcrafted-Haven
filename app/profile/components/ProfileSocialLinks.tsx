@@ -73,7 +73,7 @@ const SocialLinks = ({ links }: SocialLinksProps) => {
               </p>
             ))
           ) : (
-            <p className="text-gray-500">Isn't social links.</p>
+            <p className="text-gray-500">Is not social links.</p>
           )}
 
           <button onClick={() => setIsEditing(true)} className="mt-2 text-blue-500">
