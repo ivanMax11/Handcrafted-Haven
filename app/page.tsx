@@ -54,7 +54,9 @@ export default function Home() {
           </button>
         </div>
       </section>
-      {/* <div><HomeProduct /></div> */}
+      <div>
+        <HomeProduct />
+      </div>
 
       {/* <section className="grid grid-cols-1 bg-[#f9fafb] lg:p-[2vw] p-[5vw]">
         <h1 className="font-extrabold text-center lg:py-[1vw] py-[3vw]">
