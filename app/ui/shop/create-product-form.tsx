@@ -1,7 +1,7 @@
 "use client"
 
 import { useActionState, useState, startTransition, useTransition } from 'react';
-import { useRouter } from 'next/navigation'; // ✅ Import router for redirection
+import { useRouter } from 'next/navigation'; //  Import router for redirection
 import { createProduct, uploadImage } from '../../lib/actions';
 import { categories } from '../../lib/placeholder-data';
 import { useSession } from "next-auth/react";
@@ -12,11 +12,12 @@ export default function CreateProductForm() {
   const initialState = { message: '', errors: {} };
   const [state, formAction] = useActionState(createProduct, initialState);
   const router = useRouter(); //  Initialize router for redirection
-  //const { data: session } = useSession();
-  //console.log("session", session);
+  const { data: session } = useSession();
+  console.log("session", session);
 
-  //const userId = session?.user?.id;
-  const userId = 1
+  const userId = session?.user?.id;
+  console.log("userId", userId);
+  //const userId = 1
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
