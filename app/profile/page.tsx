@@ -13,14 +13,11 @@ import Header from "../../app/ui/home/header";
 import { roboto } from "../../app/ui/fonts";
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { useRouter } from "next/navigation";
-
 
 const SellerProfilePage = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const { data: session } = useSession();
-  const router = useRouter(); // Initialize useRouter
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -42,12 +39,7 @@ const SellerProfilePage = () => {
   }, []);
 
   if (loading) return <p>Loading profile...</p>;
-  if (!user) {
-    useEffect(() => {
-      router.push('/authenticated/login'); // Redirect if no user
-    }, [router]); // Added router as dependency
-    return null; // Return null to prevent rendering anything else
-  }
+  if (!user) return <p>No authenticated user</p>;
 
   return (
     <div className={`${roboto.className} font-roboto bg-gray-50 min-h-screen`}> {/* Add a light background */}
