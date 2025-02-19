@@ -26,12 +26,12 @@ const ProfileHero = () => {
         <p className="mt-4 text-xl">Discover our products, unique and made with love.</p>
 
         {/* Botón CTA */}
-        <a href="#products" className="mt-6 inline-block bg-yellow-500 text-black py-2 px-6 rounded-full hover:bg-yellow-400">
+        {/* <a href="#products" className="mt-6 inline-block bg-yellow-500 text-black py-2 px-6 rounded-full hover:bg-yellow-400">
           See Products
-        </a>
+        </a> */}
 
         {/* Botón para cambiar la imagen de fondo */}
-        <label htmlFor="background-image-upload" className="mt-6 inline-block bg-blue-700 text-white py-2 px-6 rounded-full cursor-pointer hover:bg-blue-600">
+        {/* <label hidden htmlFor="background-image-upload" className="mt-6 inline-block bg-blue-700 text-white py-2 px-6 rounded-full cursor-pointer hover:bg-blue-600">
           Change Background Image
         </label>
         <input
@@ -40,7 +40,7 @@ const ProfileHero = () => {
           accept="image/*"
           className="hidden"
           onChange={handleBackgroundImageChange}
-        />
+        /> */}
       </div>
     </div>
   );

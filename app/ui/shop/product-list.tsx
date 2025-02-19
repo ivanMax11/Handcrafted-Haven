@@ -3,7 +3,7 @@ import { roboto } from "../fonts";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Category, Product } from "../../lib/definitions";
-import Link from "next/link"; 
+import Link from "next/link";
 
 export default function HomeProduct() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -72,7 +72,7 @@ export default function HomeProduct() {
           <div key={product.id} className="flex font-roboto">
             <div className="flex-none w-48 relative">
               {/* Wrapping image with a Link to product details */}
-              <Link href={`/product/${product.id}`}>
+              <Link className="text-black" href="/shop/products">
                 <Image
                   src={`${product.image_url}`}
                   width={500}

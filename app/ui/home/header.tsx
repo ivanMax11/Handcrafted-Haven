@@ -5,16 +5,22 @@ import clsx from "clsx";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 
+
 function AuthButton() {
   const { data: session } = useSession();
   const router = useRouter();
   const pathname = usePathname();
 
+  const handleSignOut = async () => {
+    await signOut();
+    router.push('/'); // Redirect to home after signing out
+  };
+
   if (session) {
     return (
       <button
         className="bg-[#e0e7ff] text-[#7672ec] px-2  rounded-lg lg:p-2"
-        onClick={() => signOut()}
+        onClick={handleSignOut}
       >
         Sign Out
       </button>
