@@ -5,9 +5,11 @@ import { useEffect, useState } from 'react';
 import { Product } from '../../lib/definitions';
 import { Comments } from '../../lib/definitions';
 
-import { Category } from '../..//lib/definitions';
-import 'react-responsive-modal/styles.css';
-import { Modal } from 'react-responsive-modal';
+import { Category } from "../../lib/definitions";
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
+import { ToastContainer, toast } from "react-toastify";
+import Moment from "react-moment";
 
 export default function CardProduct() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -27,9 +29,9 @@ export default function CardProduct() {
       setIsMobile(window.innerWidth <= 768);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     handleResize();
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const [open, setOpen] = useState(false);
@@ -137,8 +139,9 @@ export default function CardProduct() {
       if (response.ok) {
         const newComment = await response.json();
         setComments([...comments, newComment]);
-        setNewReview('');
-        alert('Review added successfully!');
+        setNewReview("");
+        toast.success("Review added successfully!");
+        onCloseModal();
       } else {
         const errorData = await response.json();
         console.error('Error adding review:', response.status, errorData);
@@ -241,16 +244,17 @@ export default function CardProduct() {
 
   return (
     <>
+      <ToastContainer autoClose={3000} />
       <Modal
         open={open}
         onClose={onCloseModal}
         center
-        classNames={{ modal: isMobile ? 'modal-mobile' : '' }}
+        classNames={{ modal: isMobile ? "modal-mobile" : "" }}
         styles={{
           modal: {
-            borderRadius: '1.2vw',
-            padding: '3vw',
-            width: isMobile ? '90vw' : '30vw',
+            borderRadius: "1.2vw",
+            padding: "3vw",
+            width: isMobile ? "90vw" : "30vw",
           },
         }}>
         <h1 className='lg:text-[1.5vw] text-[5vw] text-[#1d4ed8] lg:pb-[0.5] pb-[1vw]'>
@@ -262,10 +266,14 @@ export default function CardProduct() {
               (comment: Comments) => comment.product_id === selectedProduct.id
             )
             .map((comment: Comments) => (
-              <div className='lg:pb-[0.5] pb-[1vw]' key={comment.id}>
-                <h2 className=' text-[#707070] font-semibold border-b-2 border-gray-300 '>
+              <div
+                className="grid grid-cols-[1fr_min-content] gap-[1vw] lg:pb-[0.5] pb-[1vw] border-b-2 border-gray-300  w-100"
+                key={comment.id}
+              >
+                <h2 className=" text-[#707070] font-semibold ">
                   {comment.comment_text}
                 </h2>
+                <Moment format="YYYY/MM/DD ">{comment.created_at}</Moment>
               </div>
             ))}
 
