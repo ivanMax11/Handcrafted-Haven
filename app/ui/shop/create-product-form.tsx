@@ -1,10 +1,10 @@
 "use client"
 
-import { useActionState, useState, startTransition, useTransition } from 'react';
+import { useActionState, useState, startTransition, useTransition, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; //  Import router for redirection
 import { createProduct, uploadImage } from '../../lib/actions';
 import { categories } from '../../lib/placeholder-data';
-import { useSession } from "next-auth/react";
+import { useSession, } from "next-auth/react";
 
 
 
@@ -12,8 +12,12 @@ export default function CreateProductForm() {
   const initialState = { message: '', errors: {} };
   const [state, formAction] = useActionState(createProduct, initialState);
   const router = useRouter(); //  Initialize router for redirection
-  const { data: session } = useSession();
-  console.log("session", session);
+  const { data: session, update } = useSession(); // ✅ Get session & update function
+  console.log("session in create comp", session);
+
+  useEffect(() => {
+    update(); // ✅ Force session update to get latest user data
+  }, []);
 
   const userId = session?.user?.id;
   console.log("userId", userId);
