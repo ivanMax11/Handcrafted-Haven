@@ -13,7 +13,7 @@ function AuthButton() {
   if (session) {
     return (
       <button
-        className="bg-[#e0e7ff] text-[#7672ec] rounded-lg lg:p-2"
+        className="bg-[#e0e7ff] text-[#7672ec] px-2  rounded-lg lg:p-2"
         onClick={() => signOut()}
       >
         Sign Out
@@ -24,7 +24,7 @@ function AuthButton() {
   return (
     <>
       <button
-        className="bg-blue-700 text-white p-2 rounded-lg lg:p-2"
+        className="bg-blue-700 text-white px-2 rounded-lg lg:p-2"
         onClick={() =>
           router.push(`/authenticated/login/?callbackUrl=${pathname}`)
         }
