@@ -11,10 +11,11 @@ function AuthButton() {
   const pathname = usePathname();
 
   if (session) {
-    //console.log('session', session);
+    console.log('session', session);
+    const name = session?.user?.name || session?.user?.full_name;
     return (
       <>
-        Welcome {session?.user?.name} <br />
+        Welcome {name} <br />
         <button
           className="bg-[#e0e7ff] text-[#7672ec] p-2 rounded-lg m-2"
           onClick={() => signOut()}

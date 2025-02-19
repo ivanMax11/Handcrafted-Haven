@@ -25,15 +25,29 @@ export type Comments = {
 export type adaptedProfile = {
   bio: string;
   avatar_url: string;
+  full_name: string,
+
 };
 
 export type AdapterUser = {
-  username: string;
-  name: string; // GitHub name
-  password: string;
-  email: string;
-  full_name: string;
-  bio: string;
-  profile_picture: string;
-  is_artisan: boolean;
+  id: number;
+  username: string,
+  name: string, // GitHub name
+  password: string,
+  email: string,
+  full_name: string,
+  bio: string,
+  profile_picture: string,
+  is_artisan: boolean,
+
+};
+
+export type Session = {
+  user: {
+    id: string;
+    full_name?: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
 };
