@@ -1,8 +1,9 @@
 import Footer from "../ui/home/footer";
 import Header from "../ui/home/header";
 import Image from "next/image";
-
+import { Roboto } from "next/font/google";
 import type { Metadata } from "next";
+import { roboto } from "../ui/fonts";
 
 export const metadata: Metadata = {
   title: "About",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <div className="grid  grid-rows-[min-content_auto_min-content] min-h-screen">
+    <div className={`${roboto.className} grid  grid-rows-[min-content_auto_min-content] min-h-screen`}>
       <section>
         <Header />
       </section>
