@@ -76,33 +76,39 @@ export type State = {
 
 const CreateProduct = FormSchema.omit({ productId: true });
 
-export async function uploadImage(file: File) {
+export async function uploadImage(file: File, userId: number) {
+  //export async function uploadImage(file: File) {
+
   try {
     const formData = new FormData();
-    formData.append('file', file); // 'file' is the key your storage service expects.
+    formData.append('file', file);
+    formData.append('userId', userId.toString()); // Send user ID to rename the file
 
-    const response = await fetch('/api/upload', {
-      // Your API route
+    // Get the base URL from environment variables
+    const baseUrl = process.env.NEXTAUTH_URL;
+
+    const response = await fetch(`${baseUrl}/api/uploads`, {
       method: 'POST',
       body: formData,
     });
 
     if (!response.ok) {
-      const errorData = await response.json(); // Get error details if any
-      throw new Error(errorData.message || 'Image upload failed');
+      throw new Error("Image upload failed");
     }
 
-    const { imageUrl } = await response.json(); // Get the URL from the API response
-    return imageUrl;
+    const { imageUrl } = await response.json();
+    return imageUrl; // The URL where the image is stored
   } catch (error) {
     console.error('Error uploading image:', error);
-    throw error; // Re-throw for handling in the component
+    throw error;
   }
 }
 
-export async function createProduct(prevState: State, formData: FormData) {
-  
-  console.log(formData);
+export async function createProduct(prevState: State, formData: FormData): Promise<{ message: string; errors?: any }> {
+
+
+  console.log("formData in action:", formData);
+
   // Validate the form data using Zod schema
   const productInfo = CreateProduct.safeParse({
     productId: formData.get('productId'),
@@ -138,16 +144,12 @@ export async function createProduct(prevState: State, formData: FormData) {
   try {
     await sql`
       INSERT INTO products (user_id, name, category_id, description, image_url, price, stock, created_at)
-      VALUES ( ${userId}, ${name}, ${categoryId}, ${description}, ${imageUrl}, ${price}, ${stock}, ${timeStamp})
+      VALUES (${userId}, ${name}, ${categoryId}, ${description}, ${imageUrl}, ${price}, ${stock}, ${timeStamp})
     `;
+
+    return { message: 'Product created successfully' }; // ✅ Ensure return type
   } catch (error) {
-    // If a database error occurs, return a more specific error.
     console.log(error);
-    return {
-      message: 'Database Error: Failed to Create Invoice.',
-    };
+    return { message: 'Database error: Failed to create product.' }; // ✅ Return a consistent object
   }
-  // Revalidate the cache for the products page and redirect the user.
-  revalidatePath('/shop/products');
-  redirect('/shop/products');
 }
