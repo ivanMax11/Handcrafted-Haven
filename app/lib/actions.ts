@@ -42,7 +42,7 @@ export async function registerUser(formData: FormData) {
         return { error: "Failed to register user." };
     }
 }
-=======
+
 'use server';
 
 
