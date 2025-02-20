@@ -121,7 +121,7 @@ const authOptions = {
             return true;
         },
         async jwt({ token, user }: { token: JWT; user?: User }) {
-            console.log("🔑 JWT Callback - Before:", token);
+            // console.log("🔑 JWT Callback - Before:", token);
 
             if (user) {
                 const dbUser = await findUserByEmail(user.email as string);
@@ -140,12 +140,12 @@ const authOptions = {
         },
 
         async session({ session, token }: { session: Session; token: JWT }) {
-            console.log("🟢 Session Callback Called!");
+            //console.log("🟢 Session Callback Called!");
             if (session?.user) {
                 session.user.id = token.id;
                 session.user.full_name = token.full_name as string; // Add full_name to the session
             }
-            console.log("Session in auth:", session);
+            // console.log("Session in auth:", session);
             return session;
         },
     }

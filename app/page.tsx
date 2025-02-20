@@ -49,9 +49,6 @@ export default function Home() {
           <button className="bg-blue-700 text-white p-2 rounded-lg m-2">
             <Link href="/shop/products">Shop Now</Link>
           </button>
-          <button className="bg-[#e0e7ff] text-[#7672ec] p-2 rounded-lg m-2">
-            <Link href="/shop/products">Become a Seller</Link>
-          </button>
         </div>
       </section>
       <div>

@@ -15,7 +15,7 @@ export default function HomeProduct() {
       const dataProduct = await response.json();
 
       const categoriesResponse = await fetch("/query/categories");
-      const categoriesData = await categoriesResponse.json();
+      const categoriesData = await categoriesResponse.json() || [];
 
       setProducts(dataProduct);
       setCategories(categoriesData);

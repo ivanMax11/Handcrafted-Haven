@@ -43,7 +43,7 @@ const SellerProfilePage = () => {
 
   return (
     <div className={`${roboto.className} font-roboto bg-gray-50 min-h-screen`}> {/* Add a light background */}
-      <div className="max-w-6xl mx-auto p-6 space-y-12">
+      <div className="max-w-8xl mx-auto p-6 space-y-12"> {/* Increase max-width */}
         <section>
           <Header />
         </section>
