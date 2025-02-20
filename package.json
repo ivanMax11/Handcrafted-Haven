@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.750.0",
     "@uploadthing/react": "^7.3.0",
     "@vercel/postgres": "^0.10.0",
     "bcrypt": "^5.1.1",
