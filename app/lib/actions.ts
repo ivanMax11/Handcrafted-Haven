@@ -151,3 +151,74 @@ export async function createProduct(prevState: State, formData: FormData): Promi
     return { message: 'Database error: Failed to create product.' }; // ✅ Return a consistent object
   }
 }
+
+export async function updateProduct(productId: number, formData: FormData): Promise<{ message: string; errors?: any }> {
+  console.log("FormData in action (update):", formData);
+
+  const FormSchemaUpdate = z.object({
+    productId: z.string(),
+    //  userId: z.string(),
+    name: z.string().min(1, { message: 'Name is required' }),
+    description: z.string().optional(),
+    price: z.number().positive({ message: 'Price must be a positive number' }),
+    stock: z
+      .number()
+      .int()
+      .nonnegative({ message: 'Stock must be a non-negative integer' }),
+  });
+
+  //const UpdateProduct = FormSchemaUpdate.omit({ productId: true });
+
+  // Validate the form data using Zod schema
+  const productInfo = FormSchemaUpdate.safeParse({
+    productId: formData.get('productId'),
+    // userId: formData.get('userId'), // Added this to validate the userId as well
+    name: formData.get('name'),
+    categoryId: Number(formData.get('categoryId')),
+    description: formData.get('description'),
+    imageUrl: formData.get('imageUrl'),
+    price: Number(formData.get('price')),
+    stock: Number(formData.get('stock')),
+  });
+
+  // If validation fails, return errors
+  if (!productInfo.success) {
+    console.log('Validation failed');
+    console.log(productInfo.error.flatten().fieldErrors);
+    return {
+      errors: productInfo.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Update Product.',
+    };
+  }
+
+  console.log('Validation successful');
+
+  // Prepare data for updating the database
+  const { name, description, price, stock } = productInfo.data;
+  const updatedAt = new Date().toISOString();
+
+  console.log('Updating product in the database now');
+
+  // Update product in the database
+  try {
+
+    const result = await sql`
+    UPDATE products
+    SET 
+      name = ${name},
+      description = ${description},
+      price = ${price},
+      stock = ${stock}
+    WHERE id = ${productId}
+  `;
+
+    if (result.rowCount === 0) {
+      return { message: 'Product not found or not updated' };
+    }
+
+    return { message: 'Product updated successfully' };
+  } catch (error) {
+    console.log(error);
+    return { message: 'Database error: Failed to update product.' };
+  }
+}

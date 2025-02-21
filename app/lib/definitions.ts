@@ -7,7 +7,9 @@ export type Product = {
   price: number;
   stock: string;
   id: number;
+  isEditing?: boolean;
 };
+
 
 export type Category = {
   id: number;

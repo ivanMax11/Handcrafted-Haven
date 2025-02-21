@@ -52,16 +52,6 @@ export default function ProfileListings() {
     getReviews();
   }, []);
 
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     const response = await fetch('/query/products');
-  //     const dataProduct = await response.json();
-  //     setProducts(dataProduct);
-  //     setOriginalProducts(dataProduct);
-  //   };
-
-  //   getProducts();
-  // }, []);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -113,7 +103,10 @@ export default function ProfileListings() {
         (product) => product.price <= maxPrice
       );
     }
+    filteredProducts.sort((a: { id: number }, b: { id: number }) => b.id - a.id);
     setProducts(filteredProducts);
+
+
   }, [searchTerm, selectedCategory, originalProducts, minPrice, maxPrice]);
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -187,8 +180,85 @@ export default function ProfileListings() {
     }
   };
 
-  const handleEdit = (productId: number) => {
-    router.push(`/shop/products/edit/${productId}`);
+
+  const [editableProducts, setEditableProducts] = useState<{ [key: number]: Product & { isEditing: boolean } }>({});
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(`/query/products`);
+
+      // Log the raw response
+      const text = await response.text();
+      console.log("Raw response from API:", text);
+
+      // Convert it to JSON (only if it's valid JSON)
+      const updatedProducts = JSON.parse(text);
+      // Sort the products by ID in descending order
+      updatedProducts.sort((a: { id: number }, b: { id: number }) => b.id - a.id);
+      setProducts(updatedProducts);
+    } catch (error) {
+      console.error("Failed to fetch updated products:", error);
+    }
+  };
+
+  // Initialize editableProducts when products change
+  useEffect(() => {
+    console.log("products", products);
+    const initialProducts = products.reduce((acc: { [key: number]: Product & { isEditing: boolean } }, product: Product) => {
+      acc[product.id] = { ...product, isEditing: false };
+      return acc;
+    }, {});
+
+    setEditableProducts(initialProducts);
+    console.log("Initialized editableProducts:", initialProducts);
+  }, [products]); // Re-run when `products` updates
+
+  const handleEditToggle = async (id: number) => {
+    console.log("Edit/Save button clicked for product ID:", id);
+    console.log("handleEditToggle id", id);
+    console.log("editableProducts before update", editableProducts);
+
+    if (!editableProducts[id]) {
+      console.log("editableProducts is empty or undefined");
+      return;
+    }
+
+    // Toggle isEditing state
+    setEditableProducts((prev) => {
+      const updatedProducts = {
+        ...prev,
+        [id]: {
+          ...prev[id],
+          isEditing: !prev[id].isEditing,
+        },
+      };
+      console.log("editableProducts after update", updatedProducts);
+      return updatedProducts;
+    });
+
+    // If switching from "Edit" to "Save", update DB
+    if (editableProducts[id]?.isEditing) {
+      console.log("Saving product changes:", editableProducts[id]);
+
+      const response = await fetch(`/api/shop/products/update/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: editableProducts[id].name,
+          description: editableProducts[id].description,
+          price: parseFloat(editableProducts[id].price.toString()),
+          stock: editableProducts[id].stock.toString(),
+        }),
+      });
+
+      if (!response.ok) {
+        console.error("Failed to update product");
+        return;
+      }
+
+      // ✅ Re-fetch the updated product list
+      await fetchProducts();
+    }
   };
 
 
@@ -401,6 +471,7 @@ export default function ProfileListings() {
         className={`${roboto.className} font-roboto grid lg:grid-cols-2 grid-cols-1 gap-6 bg-[#f9fafb] lg:px-[10vw] lg:py-[2vw] p-[5vw]`}
       >
         {products.map((product) => (
+          //console.log("product mapping", product),
           <div
             key={product.id}
             className="flex flex-col md:flex-row bg-white shadow-md rounded-lg overflow-hidden"
@@ -425,12 +496,134 @@ export default function ProfileListings() {
 
             {/* 📄 Product Details */}
             <div className="p-4 flex flex-col flex-grow">
+              {editableProducts[product.id]?.isEditing ? (
+                // 🎨 Edit Mode
+                <>
+                  <input
+                    type="text"
+                    value={editableProducts[product.id].name}
+                    onChange={(e) =>
+                      setEditableProducts((prev) => ({
+                        ...prev,
+                        [product.id]: { ...prev[product.id], name: e.target.value },
+                      }))
+                    }
+                    className="border p-2 rounded mb-2"
+                  />
+                  <textarea
+                    value={editableProducts[product.id].description}
+                    onChange={(e) =>
+                      setEditableProducts((prev) => ({
+                        ...prev,
+                        [product.id]: { ...prev[product.id], description: e.target.value },
+                      }))
+                    }
+                    className="border p-2 rounded mb-2"
+                  />
+                  <input
+                    type="number"
+                    value={editableProducts[product.id].price}
+                    onChange={(e) =>
+                      setEditableProducts((prev) => ({
+                        ...prev,
+                        [product.id]: { ...prev[product.id], price: parseFloat(e.target.value) },
+                      }))
+                    }
+                    className="border p-2 rounded mb-2"
+                  />
+                  <input
+                    type="number"
+                    value={editableProducts[product.id].stock}
+                    onChange={(e) =>
+                      setEditableProducts((prev) => ({
+                        ...prev,
+                        [product.id]: { ...prev[product.id], stock: e.target.value },
+                      }))
+                    }
+                    className="border p-2 rounded mb-2"
+                  />
+                </>
+              ) : (
+                // 📝 View Mode
+                <>
+                  <h3 className="text-lg font-bold text-gray-900">{product.name}</h3>
+                  <p className="text-gray-600 text-sm">{product.description}</p>
+                  <p className="text-green-600 font-semibold mt-2">${product.price}</p>
+                  <p className="text-gray-500 text-xs mt-1">In stock: {product.stock}</p>
+                </>
+              )}
+
+              {/* 🎯 Action Buttons */}
+              <div className="flex gap-4 mt-4">
+                <button
+                  onClick={() => {
+                    console.log("Edit/Save button clicked for product ID:", product.id); //  Log button click
+                    handleEditToggle(product.id);
+                  }}
+                  className={`${editableProducts[product.id]?.isEditing
+                    ? "bg-green-600 hover:bg-green-700"
+                    : "bg-blue-600 hover:bg-blue-700"
+                    } text-white px-4 py-2 rounded transition`}
+                >
+                  {editableProducts[product.id]?.isEditing ? "Save" : "Edit"}
+                </button>
+                {!editableProducts[product.id]?.isEditing && (
+                  <button
+                    onClick={() => handleDelete(product.id)}
+                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition"
+                  >
+                    Deletes
+                  </button>
+                )}
+                <button
+                  className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded transition"
+                  onClick={() => onOpenModal(product)}
+                >
+                  See Reviews
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </section>
+    </>
+  );
+}
+
+{/* <section
+        className={`${roboto.className} font-roboto grid lg:grid-cols-2 grid-cols-1 gap-6 bg-[#f9fafb] lg:px-[10vw] lg:py-[2vw] p-[5vw]`}
+      >
+        {products.map((product) => (
+          <div
+            key={product.id}
+            className="flex flex-col md:flex-row bg-white shadow-md rounded-lg overflow-hidden"
+          >
+             
+            <div className="relative w-full md:w-48 flex-shrink-0">
+              <Image
+                src={product.image_url}
+                width={500}
+                height={200}
+                className="hidden md:block w-full h-full object-cover"
+                alt={product.name}
+              />
+              <Image
+                src={product.image_url}
+                width={300}
+                height={200}
+                className="block md:hidden w-full h-[20vh] object-cover"
+                alt={product.name}
+              />
+            </div>
+
+             
+            <div className="p-4 flex flex-col flex-grow">
               <h3 className="text-lg font-bold text-gray-900">{product.name}</h3>
               <p className="text-gray-600 text-sm">{product.description}</p>
               <p className="text-green-600 font-semibold mt-2">${product.price}</p>
               <p className="text-gray-500 text-xs mt-1">In stock: {product.stock}</p>
 
-              {/* 🎯 Action Buttons */}
+               
               <div className="flex gap-4 mt-4">
                 <button
                   onClick={() => handleEdit(product.id)}
@@ -454,70 +647,4 @@ export default function ProfileListings() {
             </div>
           </div>
         ))}
-      </section>
-    </>
-  );
-}
-
-
-
-
-
-// type Product = {
-//   id: string
-//   name: string
-//   description: string
-//   price: string
-//   image: string
-// }
-
-// const products: Product[] = [
-//   {
-//     id: '1',
-//     name: "Handmade Silver Ring",
-//     description: "Beautiful handcrafted silver ring.",
-//     price: "49.99",
-//     image: "https://silverpalace.in/uploads/products/613c52525a6bb_1.jpg",
-//   },
-//   {
-//     id: '2',
-//     name: "Ceramic Vase",
-//     description: "Elegant ceramic vase with intricate patterns.",
-//     price: "79.99",
-//     image: "https://www.afloral.com/cdn/shop/products/HP501-W-White-Squatty-Vase.jpg?v=1736186714&width=1780",
-//   },
-//   // More products...
-// ]
-
-// const ListedProducts = () => {
-//   return (
-//     <section>
-//       <h3 className="text-2xl font-semibold text-gray-800 mb-4">Listed Products</h3>
-//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-//         {products.length === 0 ? (
-//           <div className="col-span-3 text-center text-gray-500">No products listed yet.</div>
-//         ) : (
-//           products.map((product) => (
-//             <div key={product.id} className="bg-white rounded-lg shadow-lg p-6">
-//               <img
-//                 src={product.image}
-//                 alt={product.name}
-//                 className="w-full h-48 object-cover rounded-t-lg mb-4"
-//               />
-//               <h4 className="text-lg font-semibold text-gray-800">{product.name}</h4>
-//               <p className="text-gray-500 mb-4">{product.description}</p>
-//               <div className="flex justify-between items-center">
-//                 <span className="font-bold text-gray-700">{product.price} USD</span>
-//                 <button className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-500 transition">
-//                   View Details
-//                 </button>
-//               </div>
-//             </div>
-//           ))
-//         )}
-//       </div>
-//     </section>
-//   )
-// }
-
-// export default ListedProducts
+      </section> */}
